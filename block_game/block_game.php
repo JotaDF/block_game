@@ -115,7 +115,7 @@ class block_game extends block_base {
         $game = new stdClass();
         $game->courseid = $COURSE->id;
         $game->userid   = $USER->id;
-        
+        $SESSION->game  = $game;
         $game=  get_game($game);
         
         if (isset($this->content)) {
@@ -140,6 +140,7 @@ class block_game extends block_base {
             $row[] = $USER->firstname;
             
             $row[] = '(Curso:'.$COURSE->id.')';
+            $row[] = '(Score:'.$game->score.')';
         } else {
             $row[] = '';
         }

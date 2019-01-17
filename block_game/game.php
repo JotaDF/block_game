@@ -27,7 +27,7 @@ $game = new stdClass();
 
 switch ($op) {
     case "load":
-        $game->courseid = $COURSE->id;
+        $game->courseid = $SESSION->game->courseid;
         $game->userid   = $USER->id;
          
         echo json_encode(load_game($game));

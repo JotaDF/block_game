@@ -20,14 +20,14 @@
  *
  * @package    contrib
  * @subpackage block_game
- * @copyright  2010 Michael de Raadt
+ * @copyright  2019 José Wilson
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once(dirname(__FILE__) . '/../../config.php');
 
 /**
- * Simple clock block config form class
+ * Game block config form class
  *
  * @copyright 2019 José Wilson
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
