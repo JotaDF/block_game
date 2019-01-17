@@ -25,6 +25,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(dirname(__FILE__) . '/../../config.php');
+require_once($CFG->dirroot . '/blocks/game/libgame.php');
 
 /**
  * Game block class
@@ -109,7 +110,14 @@ class block_game extends block_base {
     public function get_content() {
 
         global $USER, $SESSION, $COURSE, $OUTPUT, $CFG;
-
+        
+        //carregando Game do usuario
+        $game = new stdClass();
+        $game->courseid = $COURSE->id;
+        $game->userid   = $USER->id;
+        
+        $game=  get_game($game);
+        
         if (isset($this->content)) {
             return $this->content;
         }

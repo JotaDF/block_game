@@ -17,43 +17,101 @@
 // This page prints a particular instance of aicc/scorm package.
 
 require_once('../../config.php');
-require_once($CFG->dirroot.'/mod/scorm/locallib.php');
-require_once($CFG->dirroot.'/mod/scorm/libgame.php');
+require_once($CFG->dirroot . '/blocks/game/libgame.php');
 require_once($CFG->libdir . '/completionlib.php');
 
+global $USER, $SESSION, $COURSE, $OUTPUT, $CFG;
 
 $op = optional_param('op', '', PARAM_ALPHA); 
 $game = new stdClass();
 
 switch ($op) {
     case "load":
-        $game->courseid = $SESSION->scorm->courseid;
-        $game->scormid  = $SESSION->scorm->id;
+        $game->courseid = $COURSE->id;
         $game->userid   = $USER->id;
          
         echo json_encode(load_game($game));
         break;
     case "update":
         
-        $id         = optional_param('id', '0', PARAM_INT); 
-        $userid     = optional_param('userid', '0', PARAM_INT); 
-        $courseid   = optional_param('courseid', '0', PARAM_INT); 
-        $scormid    = optional_param('scormid', '0', PARAM_INT);
-        $avatar     = optional_param('avatar', '0', PARAM_INT); 
-        $score      = optional_param('score', '0', PARAM_INT); 
-        $nivel      = optional_param('nivel', '0', PARAM_INT); 
+        $id             = optional_param('id', '0', PARAM_INT); 
+        $userid         = optional_param('userid', '0', PARAM_INT); 
+        $courseid       = optional_param('courseid', '0', PARAM_INT);
+        $avatar         = optional_param('avatar', '0', PARAM_INT); 
+        $score          = optional_param('score', '0', PARAM_INT); 
+        $nivel          = optional_param('nivel', '0', PARAM_INT); 
+        $rank           = optional_param('rank', '0', PARAM_INT);         
+        $conquistas     = optional_param('conquistas', '', PARAM_SEQUENCE); 
+        $fases          = optional_param('fases', '', PARAM_SEQUENCE);
+        $recompensas    = optional_param('recompensas', '', PARAM_SEQUENCE); 
         
-        $game->id       = $id;
-        $game->userid   = $userid;
-        $game->courseid = $courseid;
-        $game->scormid  = $scormid;
-        $game->avatar   = $avatar;
-        $game->score    = $score;
-        $game->nivel    = $nivel;
+        $game->id           = $id;
+        $game->userid       = $userid;
+        $game->courseid     = $courseid;
+        $game->avatar       = $avatar;
+        $game->score        = $score;
+        $game->nivel        = $nivel;
+        $game->rank         = $rank;
+        $game->conquistas   = $conquistas; 
+        $game->fases        = $fases; 
+        $game->recompensas  = $recompensas;        
         
         echo update_game($game);
         break;
+    case "avatar":
+        
+        $id             = optional_param('id', '0', PARAM_INT); 
+        $avatar         = optional_param('avatar', '0', PARAM_INT); 
+        
+        $game->id       = $id;
+        $game->avatar   = $avatar;
+        
+        echo update_avatar_game($game);
+        break;
+    case "score":
+        
+        $id            = optional_param('id', '0', PARAM_INT); 
+        $score         = optional_param('score', '0', PARAM_INT); 
+        
+        $game->id      = $id;
+        $game->score   = $score;
+        
+        echo update_score_game($game);
+        break;
+    case "nivel":
+        
+        $id           = optional_param('id', '0', PARAM_INT); 
+        $nivel        = optional_param('nivel', '0', PARAM_INT); 
+//        echo ' id: '.$id;
+//        echo ' nivel: '.$nivel;
+        
+        $game->id     = $id;
+        $game->nivel  = $nivel;
+        
+        echo update_nivel_game($game);
+        break;
+     case "recompensas":
+        
+        $id             = optional_param('id', '0', PARAM_INT); 
+        $recompensas    = optional_param('recompensas', '', PARAM_SEQUENCE); 
+        
+        $game->id           = $id;
+        $game->recompensas  = $recompensas;
+        
+        echo update_recompensas_game($game);
+        break;
+        
+    case "fases":
+        
+        $id       = optional_param('id', '0', PARAM_INT); 
+        $fases    = optional_param('fases', '', PARAM_SEQUENCE); 
+        
+        $game->id     = $id;
+        $game->fases  = $fases;
 
+        echo update_fases_game($game);
+        break;
+   
     default:
         break;
 }
