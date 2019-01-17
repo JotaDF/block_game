@@ -16,10 +16,10 @@
 
 
 /**
- * Simple clock block config form definition
+ * Game block config form definition
  *
  * @package    contrib
- * @subpackage block_simple_clock
+ * @subpackage block_game
  * @copyright  2010 Michael de Raadt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,67 +29,21 @@ require_once(dirname(__FILE__) . '/../../config.php');
 /**
  * Simple clock block config form class
  *
- * @copyright 2010 Michael de Raadt
+ * @copyright 2019 José Wilson
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_simple_clock_edit_form extends block_edit_form {
 
+class block_simplehtml_edit_form extends block_edit_form {
+ 
     protected function specific_definition($mform) {
-
-        // Start block specific section in config form.
-        $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
-
-        // Options controlling how clocks are shown.
-        $showclockoptions = array(
-            B_SIMPLE_CLOCK_SHOW_BOTH =>
-                get_string('config_show_both_clocks', 'block_simple_clock'),
-            B_SIMPLE_CLOCK_SHOW_SERVER_ONLY =>
-                get_string('config_show_server_clock', 'block_simple_clock'),
-            B_SIMPLE_CLOCK_SHOW_USER_ONLY =>
-                get_string('config_show_user_clock', 'block_simple_clock')
-        );
-        $mform->addElement('select', 'config_show_clocks',
-                           get_string('config_clock_visibility', 'block_simple_clock'),
-                           $showclockoptions);
-        $mform->setDefault('config_show_clocks', B_SIMPLE_CLOCK_SHOW_BOTH);
-        $mform->addHelpButton('config_show_clocks', 'config_clock_visibility',
-                              'block_simple_clock');
-
-        // Control visibility of day names.
-        $mform->addElement('selectyesno', 'config_show_day',
-                           get_string('config_day', 'block_simple_clock'));
-        $mform->setDefault('config_show_day', 0);
-        $mform->addHelpButton('config_show_day', 'config_day', 'block_simple_clock');
-
-        // Control visibility of seconds.
-        $mform->addElement('selectyesno', 'config_show_seconds',
-                           get_string('config_seconds', 'block_simple_clock'));
-        $mform->setDefault('config_show_seconds', 0);
-        $mform->addHelpButton('config_show_seconds', 'config_seconds', 'block_simple_clock');
-
-        // Control 24 hour time.
-        $mform->addElement('selectyesno', 'config_twenty_four_hour_time',
-                           get_string('config_twenty_four_hour_time', 'block_simple_clock'));
-        $mform->setDefault('config_twenty_four_hour_time', 0);
-
-        // Control visibility of icons.
-        $mform->addElement('selectyesno', 'config_show_icons',
-                           get_string('config_icons', 'block_simple_clock'));
-        $mform->setDefault('config_show_icons', 1);
-        $mform->addHelpButton('config_show_icons', 'config_icons', 'block_simple_clock');
-
-        // Control visibility of the block header.
-        $mform->addElement('selectyesno', 'config_show_header',
-                           get_string('config_header', 'block_simple_clock'));
-        $mform->setDefault('config_show_header', 1);
-        $mform->addHelpButton('config_show_header', 'config_header', 'block_simple_clock');
-
-        // Clock block instance alternate title.
-        $mform->addElement('text', 'config_clock_title',
-                           get_string('config_title', 'block_simple_clock'));
-        $mform->setDefault('config_clock_title', '');
-        $mform->disabledIf('config_clock_title', 'config_show_header', 'eq', 0);
-        $mform->setType('config_clock_title', PARAM_MULTILANG);
-        $mform->addHelpButton('config_clock_title', 'config_title', 'block_simple_clock');
+ 
+        // Section header title according to language file.
+        $mform->addElement('header', 'config_header', get_string('blocksettings', 'block'));
+ 
+        // A sample string variable with a default value.
+        $mform->addElement('text', 'config_text', get_string('blockstring', 'block_game'));
+        $mform->setDefault('config_text', 'default value');
+        $mform->setType('config_text', PARAM_RAW);        
+ 
     }
 }
