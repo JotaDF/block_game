@@ -136,11 +136,13 @@ class block_game extends block_base {
             $row = array();
             $userpictureparams = array('size' => 16, 'link' => false, 'alt' => 'User');
             $userpicture = $OUTPUT->user_picture($USER, $userpictureparams);
-            $row[] = $userpicture;
-            $row[] = $USER->firstname;
-            
-            $row[] = '(Curso:'.$COURSE->id.')';
-            $row[] = '(Score:'.$game->score.')';
+            $row[] = $userpicture.' '.$USER->firstname;
+            $table->data[] = $row;
+            $row = array();
+            $row[] = 'Curso:'.$COURSE->id.'';
+            $table->data[] = $row;
+            $row = array();
+            $row[] = 'Score:'.$game->score.'';
         } else {
             $row[] = '';
         }
