@@ -16,7 +16,7 @@
 
 
 /**
- * Simple clock block version identification
+ * Game block version identification
  *
  * @package    contrib
  * @subpackage block_game

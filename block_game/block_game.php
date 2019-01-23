@@ -27,14 +27,7 @@
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot . '/blocks/game/libgame.php');
 
-/**
- * Game block class
- *
- * @copyright 2010 Michael de Raadt
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 class block_game extends block_base {
-
     /**
      * Sets the block title
      *
@@ -111,12 +104,12 @@ class block_game extends block_base {
 
         global $USER, $SESSION, $COURSE, $OUTPUT, $CFG;
         
-        //carregando Game do usuario
+        //load Game of user
         $game = new stdClass();
         $game->courseid = $COURSE->id;
         $game->userid   = $USER->id;
         $SESSION->game  = $game;
-        $game=  get_game($game);
+        $game           =  get_game($game);
         
         if (isset($this->content)) {
             return $this->content;
@@ -126,27 +119,47 @@ class block_game extends block_base {
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
+        $showicons = !isset($this->config->show_icons) || $this->config->show_icons == 1;
+        $showrank = !isset($this->config->show_rank) || $this->config->show_rank == 1;
+        $showscore = !isset($this->config->show_score) || $this->config->show_score == 1;
+        $shownivel = !isset($this->config->show_nivel) || $this->config->show_nivel == 1;
+        
         $table = new html_table();
         $table->attributes = array('class' => 'gameTable');
 
         // display
-        
-
         if ($USER->id != 0) {
             $row = array();
             $userpictureparams = array('size' => 16, 'link' => false, 'alt' => 'User');
             $userpicture = $OUTPUT->user_picture($USER, $userpictureparams);
-            $row[] = $userpicture.' '.$USER->firstname;
+            $row[] = $userpicture.' '.get_string('label_you', 'block_game');
             $table->data[] = $row;
             $row = array();
-            $row[] = 'Curso:'.$COURSE->id.'';
+            $row[] = get_string('label_course', 'block_game').': '.$COURSE->shortname.'';
             $table->data[] = $row;
-            $row = array();
-            $row[] = 'Score:'.$game->score.'';
+            if($showrank){
+                $row = array();
+                $txt_icon = $showicons? $OUTPUT->pix_icon('rank', $alt, 'block_game') : '';
+                $row[] = $txt_icon .' '. get_string('label_rank', 'block_game').': '.$game->rank.'';
+                $table->data[] = $row;
+            }
+            if($showscore){
+                $row = array();
+                $txt_icon = $showicons? $OUTPUT->pix_icon('score', $alt, 'block_game') : '';
+                $row[] = $txt_icon .' '. get_string('label_score', 'block_game').': '.$game->score.'';
+                $table->data[] = $row;
+            }
+            if($shownivel){
+                $row = array();
+                $txt_icon = $showicons? $OUTPUT->pix_icon('nivel', $alt, 'block_game') : '';
+                $row[] = $txt_icon .' '. get_string('label_nivel', 'block_game').': '.$game->nivel.'';
+                $table->data[] = $row;
+            }
+
         } else {
             $row[] = '';
+            $table->data[] = $row;
         }
-        $table->data[] = $row;
         $this->content->text .= HTML_WRITER::table($table);
 
         $this->content->footer = '';

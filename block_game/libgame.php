@@ -14,8 +14,9 @@ function get_game($game) {
         $busca = $DB->get_record_sql('SELECT count(*) as total  FROM {block_game} WHERE courseid=? AND userid=?', array($game->courseid,$game->userid));
         //caso existam dados 
         if($busca->total>0){
-
             $gamedb = $DB->get_record('block_game',array('courseid' => $game->courseid , 'userid' => $game->userid));
+            $ranking = $DB->get_record_sql('SELECT count(*) as valor  FROM {block_game} WHERE courseid=? AND score>?', array($game->courseid,$gamedb->score));
+            $gamedb->rank=$ranking->valor+1;
             return $gamedb;
 
         }else{
@@ -217,3 +218,4 @@ function update_fases_game($game) {
     }
     return false;
 }
+?>

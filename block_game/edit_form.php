@@ -20,30 +20,67 @@
  *
  * @package    contrib
  * @subpackage block_game
- * @copyright  2019 José Wilson
+ * @copyright  2019 Jose Wilson
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once(dirname(__FILE__) . '/../../config.php');
 
-/**
- * Game block config form class
- *
- * @copyright 2019 José Wilson
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
-class block_simplehtml_edit_form extends block_edit_form {
- 
+class block_game_edit_form extends block_edit_form {
+
     protected function specific_definition($mform) {
- 
-        // Section header title according to language file.
-        $mform->addElement('header', 'config_header', get_string('blocksettings', 'block'));
- 
-        // A sample string variable with a default value.
-        $mform->addElement('text', 'config_text', get_string('blockstring', 'block_game'));
-        $mform->setDefault('config_text', 'default value');
-        $mform->setType('config_text', PARAM_RAW);        
- 
+
+        // Start block specific section in config form.
+        $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
+        /*
+        // Options controlling how clocks are shown.
+        $showclockoptions = array(
+            B_SIMPLE_CLOCK_SHOW_BOTH =>
+                get_string('config_show_rank', 'block_game'),
+            B_SIMPLE_CLOCK_SHOW_SERVER_ONLY =>
+                get_string('config_show_score', 'block_game'),
+            B_SIMPLE_CLOCK_SHOW_USER_ONLY =>
+                get_string('config_show_nivel', 'block_game')
+        );
+        $mform->addElement('select', 'config_show_clocks',
+                           get_string('config_clock_visibility', 'block_game'),
+                           $showclockoptions);
+        $mform->setDefault('config_show_clocks', B_SIMPLE_CLOCK_SHOW_BOTH);
+        $mform->addHelpButton('config_show_clocks', 'config_clock_visibility',
+                              'block_game');
+        */
+        // Control visibility of rank names.
+        $mform->addElement('selectyesno', 'config_show_rank',
+                           get_string('config_rank', 'block_game'));
+        $mform->setDefault('config_show_rank', 0);
+        $mform->addHelpButton('config_show_rank', 'config_rank', 'block_game');
+
+        // Control visibility of score.
+        $mform->addElement('selectyesno', 'config_show_score',
+                           get_string('config_score', 'block_game'));
+        $mform->setDefault('config_show_score', 0);
+        $mform->addHelpButton('config_show_score', 'config_score', 'block_game');
+
+        // Control visibility of nivel.
+        $mform->addElement('selectyesno', 'config_show_nivel',
+                           get_string('config_nivel', 'block_game'));
+        $mform->setDefault('config_show_nivel', 0);
+        $mform->addHelpButton('config_show_nivel', 'config_nivel', 'block_game');
+
+        // Control visibility of icons.
+        $mform->addElement('selectyesno', 'config_show_icons',
+                           get_string('config_icons', 'block_game'));
+        $mform->setDefault('config_show_icons', 1);
+        $mform->addHelpButton('config_show_icons', 'config_icons', 'block_game');
+
+
+        // Clock block instance alternate title.
+        $mform->addElement('text', 'config_game_title',
+                           get_string('config_title', 'block_game'));
+        $mform->setDefault('config_game_title', '');
+        $mform->disabledIf('config_game_title', 'config_show_header', 'eq', 0);
+        $mform->setType('config_game_title', PARAM_MULTILANG);
+        $mform->addHelpButton('config_game_title', 'config_title', 'block_game');
     }
 }

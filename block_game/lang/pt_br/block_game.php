@@ -26,9 +26,25 @@
 
 
 $string['pluginname'] = 'Bloco Game';
-$string['block_game'] = 'Game';
-$string['block_game:addinstance'] = 'Novo Bloco Game';
-$string['block_game:myaddinstance'] = 'Novo Bloco Game para minha Moodle page';
+$string['block_game:addinstance'] = 'Adcionar novo bloco Game';
+$string['block_game:myaddinstance'] = 'Adcionar novo bloco Game na sua Moodle page';
 
+$string['config_rank'] = 'Mostrar Classificação';
+$string['config_rank_help'] = '<p>Mostrando Classificação.</p>';
+$string['config_score'] = 'Mostrar Pontos';
+$string['config_score_help'] = '<p>Mostrando Pontos.</p>';
+$string['config_nivel'] = 'Mostrar Nivel';
+$string['config_nivel_help'] = '<p>Mostrar Nível.</p>';
+$string['config_icons'] = 'Mostrar ícones';
+$string['config_icons_help'] = '<p>Mostrando ícones.</p>';
+$string['config_title'] = 'Alterar título';
+$string['config_title_help'] = '<p>Alterar o título do bloco.</p>';
+
+$string['label_course'] = 'Curso';
+$string['label_rank'] = 'Classificação';
+$string['label_score'] = 'Pontos';
+$string['label_nivel'] = 'Nível';
+
+$string['label_course'] = 'Curso';
+$string['label_you'] = 'Você';
 $string['game_title_default'] = 'Game';
-$string['you'] = 'Voce';
