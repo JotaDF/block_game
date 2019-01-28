@@ -37,6 +37,8 @@ $string['config_nivel'] = 'Show Nivel';
 $string['config_nivel_help'] = '<p>Showing the Level.</p>';
 $string['config_icons'] = 'Show ícones';
 $string['config_icons_help'] = '<p>Showing the icons.</p>';
+$string['config_bonus_day'] = 'Bonus of the day';
+$string['config_bonus_day_help'] = '<p>Enable bonus of the day, 10 points per day of access.</p>';
 $string['config_title'] = 'Edit title';
 $string['config_title_help'] = '<p>Editing the title of the block.</p>';
 
@@ -45,6 +47,5 @@ $string['label_rank'] = 'Ranking';
 $string['label_score'] = 'Score';
 $string['label_nivel'] = 'Level';
 
-$string['label_course'] = 'Course';
 $string['label_you'] = 'You';
 $string['game_title_default'] = 'Game';

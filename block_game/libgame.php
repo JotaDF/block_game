@@ -1,22 +1,54 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
+/**
+ * Game block language strings
+ *
+ * @package    contrib
+ * @subpackage block_game
+ * @copyright  2019 Jose Wilson
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-//Carregando dados de game do usuario
+
+//Load game user of de block
 function get_game($game) {
     global $DB;
-
     if (!empty($game->userid) && !empty($game->courseid)) {
         $busca = $DB->get_record_sql('SELECT count(*) as total  FROM {block_game} WHERE courseid=? AND userid=?', array($game->courseid,$game->userid));
         //caso existam dados 
         if($busca->total>0){
             $gamedb = $DB->get_record('block_game',array('courseid' => $game->courseid , 'userid' => $game->userid));
-            $ranking = $DB->get_record_sql('SELECT count(*) as valor  FROM {block_game} WHERE courseid=? AND score>?', array($game->courseid,$gamedb->score));
-            $gamedb->rank=$ranking->valor+1;
+            if($game->courseid==1){
+                //echo '<script>console.log("Entrou no if curso 1!")</script>';
+                $ranking = $DB->get_records_sql('SELECT userid, SUM(score) as pt FROM {block_game} GROUP BY userid ORDER BY pt DESC');
+                $poisicao=1;
+                foreach($ranking as $rs){
+                    if($rs->userid==$game->userid){
+                        $gamedb->score = $rs->pt;
+                        $gamedb->rank= $poisicao;
+                        break;
+                    }
+                    $poisicao++;
+                } 
+            }else{
+                $ranking = $DB->get_record_sql('SELECT count(*) as valor  FROM {block_game} WHERE courseid=? AND score>?', array($game->courseid,$gamedb->score));
+                $gamedb->rank=$ranking->valor+1;
+            }
             return $gamedb;
 
         }else{
@@ -40,7 +72,7 @@ function get_game($game) {
     return false;
 }
 
-//Carregando dados de game do usuario
+//Load game user
 function load_game($game) {
     global $DB;
 
@@ -68,7 +100,7 @@ function load_game($game) {
             return $game_json;
 
         }else{
-                //caso nao existam dados 
+                //case is not exsist 
                 $new_game = new stdClass();
                 $new_game->courseid	= $game->courseid;
                 $new_game->userid 	= $game->userid;
@@ -101,7 +133,7 @@ function load_game($game) {
     return false;
 }
 
-//Altualiza dados de game do usuario
+//update game user
 function update_game($game) {
     global $DB;
 
@@ -136,7 +168,7 @@ function update_game($game) {
     }
     return false;
 }
-//Altualiza dados de avatar do game do usuario
+//update avatar user
 function update_avatar_game($game) {
     global $DB;
      
@@ -153,7 +185,7 @@ function update_avatar_game($game) {
     return false;
 }
 
-//Altualiza dados de score do game do usuario
+//Update score game
 function update_score_game($game) {
     global $DB;
      
@@ -170,7 +202,7 @@ function update_score_game($game) {
     return false;
 }
 
-//Altualiza dados de nivel do game do usuario
+//Update nivel game
 function update_nivel_game($game) {
     global $DB;
      
@@ -186,7 +218,7 @@ function update_nivel_game($game) {
     }
     return false;
 }
-//Altualiza dados de recompensas do game do usuario
+//Update recompensas game
 function update_recompensas_game($game) {
     global $DB;
      
@@ -202,7 +234,7 @@ function update_recompensas_game($game) {
     }
     return false;
 }
-//Altualiza dados de fases do game do usuario
+//Update fases game
 function update_fases_game($game) {
     global $DB;
      
@@ -214,6 +246,23 @@ function update_fases_game($game) {
 
         $DB->update_record('block_game', $save_game);
         
+        return true;
+    }
+    return false;
+}
+
+
+//Update bonus of the day game
+function bonus_of_day($game) {
+    global $DB;
+     
+    if (!empty($game->id)) {
+        $busca = $DB->get_record_sql('SELECT CURDATE() as hoje, bonus_day  FROM {block_game} WHERE courseid=? AND userid=?', array($game->courseid,$game->userid));
+        if($busca->bonus_day<$busca->hoje){
+            $game->score = $game->score+10;
+            $game->bonus_day=$busca->hoje;
+            $DB->update_record('block_game', $game);
+        }
         return true;
     }
     return false;

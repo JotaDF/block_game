@@ -124,6 +124,13 @@ class block_game extends block_base {
         $showscore = !isset($this->config->show_score) || $this->config->show_score == 1;
         $shownivel = !isset($this->config->show_nivel) || $this->config->show_nivel == 1;
         
+        //bonus of day
+        $bonus_of_day = !isset($this->config->add_bonus_day) || $this->config->add_bonus_day == 1;
+        if($bonus_of_day){
+            bonus_of_day($game);
+            //$game =  get_game($game);
+        }
+        
         $table = new html_table();
         $table->attributes = array('class' => 'gameTable');
 
@@ -135,7 +142,9 @@ class block_game extends block_base {
             $row[] = $userpicture.' '.get_string('label_you', 'block_game');
             $table->data[] = $row;
             $row = array();
-            $row[] = get_string('label_course', 'block_game').': '.$COURSE->shortname.'';
+            $txt_icon = $showicons? $OUTPUT->pix_icon('logo', $alt, 'theme') : '';
+            $txt_course = $COURSE->id==1? '' : '('.$COURSE->shortname.')';
+            $row[] = $txt_course;
             $table->data[] = $row;
             if($showrank){
                 $row = array();

@@ -33,24 +33,8 @@ class block_game_edit_form extends block_edit_form {
 
         // Start block specific section in config form.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
-        /*
-        // Options controlling how clocks are shown.
-        $showclockoptions = array(
-            B_SIMPLE_CLOCK_SHOW_BOTH =>
-                get_string('config_show_rank', 'block_game'),
-            B_SIMPLE_CLOCK_SHOW_SERVER_ONLY =>
-                get_string('config_show_score', 'block_game'),
-            B_SIMPLE_CLOCK_SHOW_USER_ONLY =>
-                get_string('config_show_nivel', 'block_game')
-        );
-        $mform->addElement('select', 'config_show_clocks',
-                           get_string('config_clock_visibility', 'block_game'),
-                           $showclockoptions);
-        $mform->setDefault('config_show_clocks', B_SIMPLE_CLOCK_SHOW_BOTH);
-        $mform->addHelpButton('config_show_clocks', 'config_clock_visibility',
-                              'block_game');
-        */
-        // Control visibility of rank names.
+
+        // Control visibility of rank.
         $mform->addElement('selectyesno', 'config_show_rank',
                            get_string('config_rank', 'block_game'));
         $mform->setDefault('config_show_rank', 0);
@@ -74,8 +58,13 @@ class block_game_edit_form extends block_edit_form {
         $mform->setDefault('config_show_icons', 1);
         $mform->addHelpButton('config_show_icons', 'config_icons', 'block_game');
 
+        // Control bonus of day.
+         $mform->addElement('selectyesno', 'config_add_bonus_day',
+                           get_string('config_bonus_day', 'block_game'));
+        $mform->setDefault('config_add_bonus_day', 1);
+        $mform->addHelpButton('config_add_bonus_day', 'config_bonus_day', 'block_game');
 
-        // Clock block instance alternate title.
+        // Game block instance alternate title.
         $mform->addElement('text', 'config_game_title',
                            get_string('config_title', 'block_game'));
         $mform->setDefault('config_game_title', '');
