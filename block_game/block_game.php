@@ -119,11 +119,17 @@ class block_game extends block_base {
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
-        $showicons = !isset($this->config->show_icons) || $this->config->show_icons == 1;
-        $showrank = !isset($this->config->show_rank) || $this->config->show_rank == 1;
-        $showscore = !isset($this->config->show_score) || $this->config->show_score == 1;
-        $showlevel = !isset($this->config->show_level) || $this->config->show_level == 1;
+        $showicons  = !isset($this->config->show_icons) || $this->config->show_icons == 1;
+        $showrank   = !isset($this->config->show_rank) || $this->config->show_rank == 1;
+        $showscore  = !isset($this->config->show_score) || $this->config->show_score == 1;
+        $showlevel  = !isset($this->config->show_level) || $this->config->show_level == 1;
         
+        if(isset($this->config->level_up)){
+            $level_up   = $this->config->level_up;
+        }else{
+            $level_up   = 100;
+        }
+
         //bonus of day
         $bonus_of_day = !isset($this->config->add_bonus_day) || $this->config->add_bonus_day == 1;
         if($bonus_of_day){
@@ -135,10 +141,10 @@ class block_game extends block_base {
          
         if($score_activities){
             score_activities($game);
-            $game   =  load_game($game);
+            $game   =  ranking($game,$level_up);
         }else{
             no_score_activities($game);
-            $game   =  load_game($game);
+            $game   =  ranking($game,$level_up);
         }
         
         $table = new html_table();

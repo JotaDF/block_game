@@ -33,10 +33,10 @@ function load_game($game) {
         //if the data 
         if($busca->total>0){
             $gamedb = $DB->get_record('block_game',array('courseid' => $game->courseid , 'userid' => $game->userid));
-            $gamedb = ranking($gamedb);
             return $gamedb;
 
         }else{
+            echo "<script> console.log('Não encontrou game do usuario');</script>";
                 //if there is no data
                 $new_game = new stdClass();
                 $new_game->courseid         = $game->courseid;
@@ -50,7 +50,8 @@ function load_game($game) {
                 $new_game->rewards          = "";
                 $new_game->phases           = "";
                 $new_game->frame            = "";
-                $new_game->bonus_day        = "";
+                $new_game->bonus_day        = null;
+                echo print_r($new_game);
                 $lastinsertid = $DB->insert_record('block_game', $new_game);
                 $new_game->id           = $lastinsertid;
                 
@@ -254,16 +255,21 @@ function no_score_activities($game) {
 }
 
 //ranking user
-function ranking($game) {
+function ranking($game,$level_up) {
     global $DB;
      
     if (!empty($game->id)) {
         if($game->courseid==1){
-                $ranking = $DB->get_records_sql('SELECT userid, (SUM(score)+SUM(IFNULL(score_activities, 0))) as pt FROM {block_game} GROUP BY userid ORDER BY pt DESC');
+                $ranking = $DB->get_records_sql('SELECT userid,SUM(score) as sum_score, SUM(IFNULL(score_activities, 0)) as sum_score_activities, (SUM(score)+SUM(IFNULL(score_activities, 0))) as pt FROM {block_game} WHERE courseid<>? GROUP BY userid ORDER BY pt DESC', array($game->courseid));
                 $poisicao=1;
                 foreach($ranking as $rs){
                     if($rs->userid==$game->userid){
                         $game->rank= $poisicao;
+                        //seting level and update score
+                        $level = (int)($rs->pt / $level_up);
+                        $game->score = $rs->sum_score;
+                        $game->score_activities = $rs->sum_score_activities;
+                        $game->level = $level;
                         break;
                     }
                     $poisicao++;
@@ -274,12 +280,15 @@ function ranking($game) {
                 foreach($ranking as $rs){
                     if($rs->userid==$game->userid){
                         $game->rank= $poisicao;
+                        //seting level
+                        $level = (int)($rs->pt / $level_up);
+                        $game->level = $level;
                         break;
                     }
                     $poisicao++;
                 } 
             }
-        $DB->update_record('block_game', $game);
+        $DB->execute("UPDATE {block_game} SET rank=?,level=? WHERE id=?", array($game->rank,$game->level,$game->id));
     }
     return $game;
 }

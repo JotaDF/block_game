@@ -51,7 +51,13 @@ class block_game_edit_form extends block_edit_form {
                            get_string('config_level', 'block_game'));
         $mform->setDefault('config_show_level', 0);
         $mform->addHelpButton('config_show_level', 'config_level', 'block_game');
-
+        
+        // Options controlling level up.
+        $level_up_options = array(100=>100,500=>500,1000=>1000,1500=>1500,2000=>2000,5000=>5000,10000=>10000);
+        $mform->addElement('select', 'config_level_up',
+                           get_string('config_level_up', 'block_game'),
+                           $level_up_options);
+        
         // Control visibility of icons.
         $mform->addElement('selectyesno', 'config_show_icons',
                            get_string('config_icons', 'block_game'));
