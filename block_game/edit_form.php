@@ -53,11 +53,7 @@ class block_game_edit_form extends block_edit_form {
         $mform->addHelpButton('config_show_level', 'config_level', 'block_game');
         
         // Options controlling level up.
-<<<<<<< HEAD
         $level_up_options = array(100=>100,200=>200,500=>500,1000=>1000,1500=>1500,2000=>2000,5000=>5000,10000=>10000);
-=======
-        $level_up_options = array(100=>100,500=>500,1000=>1000,1500=>1500,2000=>2000,5000=>5000,10000=>10000);
->>>>>>> afb734063cd05f24d6e77bcc83159c10d4cb6251
         $mform->addElement('select', 'config_level_up',
                            get_string('config_level_up', 'block_game'),
                            $level_up_options);
