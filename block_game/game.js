@@ -13,33 +13,42 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-//variaveis globais
+//global variables
 var game;
-var recompensas=[];
-var fases=[];
+var achievements=[];
+var phases=[];
+var rewards=[];
 var url= window.location.origin+"/moodle";
 
-//Carregar o game do usuario
+//Load the user game
 function loadGame() {
     $(document).ready(function(){
         $.getJSON(url+"/blocks/game/game.php?op=load", function(result){
                 $.each(result, function(i, dados){
                         game = dados;
-                        recompensas=[];
-                        if(game.recompensas!=0 || game.recompensas!=''){
-                            for(var i = 0; i < game.recompensas.length; i++) {
-                                recompensas.push(parseInt(game.recompensas[i]));;
+                        rewards=[];
+                        if(game.rewards!=0 || game.rewards!=''){
+                            for(var i = 0; i < game.rewards.length; i++) {
+                                rewards.push(parseInt(game.rewards[i]));;
                             }
                         }else{
-                            recompensas=new Array(0);
+                            rewards=new Array(0);
                         }
-                        fases=[];
-                        if(game.fases!=0 || game.fases!=''){
-                            for(var i = 0; i < game.fases.length; i++) {
-                                fases.push(parseInt(game.fases[i]));;
+                        phases=[];
+                        if(game.phases!=0 || game.phases!=''){
+                            for(var i = 0; i < game.phases.length; i++) {
+                                phases.push(parseInt(game.phases[i]));;
                             }
                         }else{
-                            fases=new Array(0);
+                            phases=new Array(0);
+                        }
+                        achievements=[];
+                        if(game.achievements!=0 || game.achievements!=''){
+                            for(var i = 0; i < game.achievements.length; i++) {
+                                achievements.push(parseInt(game.achievements[i]));;
+                            }
+                        }else{
+                            achievements=new Array(0);
                         }
                 });
         });
@@ -48,120 +57,148 @@ function loadGame() {
 }
 function saveGame(){
     $.post(url+"/blocks/game/game.php", {
-        op : "update", id : game.id, userid : game.userid, scormid : game.scormid, courseid : game.courseid, avatar : game.avatar, score : game.score, nivel : game.nivel, fases : fases.toString(), recompensas : recompensas.toString()
+        op : "update", id : game.id, userid : game.userid, courseid : game.courseid, avatar : game.avatar, score : game.score, level : game.level, phases : phases.toString(), rewards : rewards.toString()
     }, function(result){
         if(!result){
-            alert("Erro ao atualizar game!");
+            alert("Error updating game!");
         }
     });
 }
-//Atribuir um avatar ao usuario
+//Assign an avatar to the user
 function addAvatar(id_avatar){
     game.avatar = id_avatar;
-    //alert("Escolhendo avatar:"+game.avatar);
     $.post(url+"/blocks/game/game.php", {
         op : "avatar", id : game.id, avatar : game.avatar
     }, function(result){
         if(!result){
-            alert("Erro ao escolher avatar!");
+            alert("Error setting avatar!");
         }
     });
     loadGame();
 }
-//Somar valor ao score do usuario
+//Add value to the user's score
 function addScore(valor){
     game.score = parseInt(game.score) + parseInt(valor);
-    //alert("Pontuando: + "+valor);
     $.post(url+"/blocks/game/game.php", {
         op : "score", id : game.id, score : game.score
     }, function(result){
         if(!result){
-            alert("Erro ao pontuar!");
+            alert("Error while scoring!");
         }
     });
     loadGame();
 }
-//Subtrair valor ao score do usuario
+//Subtract value from user score
 function delScore(valor){
     game.score = parseInt(game.score) - parseInt(valor);
-    //alert("Pontuando: - "+valor);
     $.post(url+"/blocks/game/game.php", {
         op : "score", id : game.id, score : game.score
     }, function(result){
         if(!result){
-            alert("Erro ao pontuar!");
+            alert("Error while scoring!");
         }
     });
     loadGame();
 }
-//Definir nivel do usuario
-function defineNivel(nivel){
-    game.nivel = nivel;
-    //alert("Definindo Nivel:"+game.nivel);
+//Set user level
+function setLevel(level){
+    game.level = level;
     $.post(url+"/blocks/game/game.php", {
-        op : "nivel", id : game.id, nivel : game.nivel
+        op : "level", id : game.id, level : game.level
     }, function(result){
         if(!result){
-            alert("Erro ao definir nivel!");
+            alert("Error setting level!");
         }
     });
     loadGame();
 }
-//Adcionar uma recompensa ao usuario
-function addRecompensa(item){
-      recompensas.push(item);
-      //alert("Adcionando recompensa: "+item+" reconpensas:"+recompensas.toString());
+//Add an achievement to the user
+function addAchievements(item){
+      achievements.push(item);
       $.post(url+"/blocks/game/game.php", {
-          op : "recompensas", id : game.id, recompensas : recompensas.toString()
+          op : "achievements", id : game.id, achievements : achievements.toString()
       }, function(result){
           if(!result){
-              alert("Erro ao adcionar recompensa!");
+              alert("Error adding achievement!");
           }
       });
       loadGame();
 }
-//salva vetor de reconpensas no banco
-function saveRecompensa(){
+//save vector of achievement
+function saveAchievements(){
       $.post(url+"/blocks/game/game.php", {
-          op : "recompensas", id : game.id, recompensas : recompensas.toString()
+          op : "achievements", id : game.id, achievements : achievements.toString()
       }, function(result){
           if(!result){
-              alert("Erro ao adcionar recompensa!");
+              alert("Error adding achievement!");
           }
       });
       loadGame();
 }
-//Remover uma recompensa do usuario
-function delRecompensa(item){
-    recompensas.remove(item);
-    //alert("Removendo recompensa: "+item+" id: "+game.id+" reconpensas:"+recompensas.toString());
+//Remove an achievement from the user
+function delAchievements(item){
+    rewards.remove(item);
     $.post(url+"/blocks/game/game.php", {
-        op : "recompensas", id : game.id, recompensas : recompensas.toString()
+        op : "achievements", id : game.id, achievements : achievements.toString()
     }, function(result){
         if(!result){
-            alert("Erro ao remover recompensa!");
+            alert("Error removing achievement!");
         }
     });
     loadGame();
 }
-//Adcionar uma recompensa ao usuario
-function addFase(item){
-      fases.push(item);
-      //alert("Adcionando fase: "+item+" fases:"+fases.toString());
+
+//Add a reward to the user
+function addReward(item){
+      rewards.push(item);
       $.post(url+"/blocks/game/game.php", {
-          op : "fases", id : game.id, fases : fases.toString()
+          op : "rewards", id : game.id, rewards : rewards.toString()
       }, function(result){
           if(!result){
-              alert("Erro ao adcionar fase!");
+              alert("Error adding reward!");
           }
       });
       loadGame();
 }
-//salva vetor de fases no banco
+//save rewards of vector
+function saveReward(){
+      $.post(url+"/blocks/game/game.php", {
+          op : "rewards", id : game.id, rewards : rewards.toString()
+      }, function(result){
+          if(!result){
+              alert("Error adding reward!");
+          }
+      });
+      loadGame();
+}
+//Remove a reward from the user
+function delReward(item){
+    rewards.remove(item);
+    $.post(url+"/blocks/game/game.php", {
+        op : "rewards", id : game.id, rewards : rewards.toString()
+    }, function(result){
+        if(!result){
+            alert("Error removing reward!");
+        }
+    });
+    loadGame();
+}
+//Add a phase to the user
+function addPhase(item){
+      phases.push(item);
+      $.post(url+"/blocks/game/game.php", {
+          op : "phases", id : game.id, phases : phases.toString()
+      }, function(result){
+          if(!result){
+              alert("Error adding phase!");
+          }
+      });
+      loadGame();
+}
+//save phases of vector
 function saveFase(){
-      //alert("Adcionando fase: "+item+" fases:"+fases.toString());
       $.post(url+"/blocks/game/game.php", {
-          op : "fases", id : game.id, fases : fases.toString()
+          op : "phases", id : game.id, phases : phases.toString()
       }, function(result){
           if(!result){
               alert("Erro ao adcionar fase!");
@@ -169,20 +206,31 @@ function saveFase(){
       });
       loadGame();
 }
-//Remover uma recompensa do usuario
+//Remove a reward from the user
 function delFase(item){
-    fases.remove(item);
-    //alert("Removendo fase: "+item+" id: "+game.id+" fases:"+fases.toString());
+    phases.remove(item);
     $.post(url+"/blocks/game/game.php", {
-        op : "fases", id : game.id, fases : fases.toString()
+        op : "phases", id : game.id, phases : phases.toString()
     }, function(result){
         if(!result){
-            alert("Erro ao remover fase!");
+            alert("Error removing phase!");
         }
     });
     loadGame();
 }
-//Adciona metodo para remover item de array
+//Set user frame 
+function setFrame(frame){
+    game.frame = frame;
+    $.post(url+"/blocks/game/game.php", {
+        op : "frame", id : game.id, frame : game.frame
+    }, function(result){
+        if(!result){
+            alert("Error setting frame!");
+        }
+    });
+    loadGame();
+}
+//Add method to remove array item
 Array.prototype.remove = function() {
     var what, a = arguments, L = a.length, ax;
     while (L && this.length) {

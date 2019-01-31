@@ -17,7 +17,7 @@
 
 
 /**
- * Simple Clock block definition
+ * Game block definition
  *
  * @package    contrib
  * @subpackage block_game
@@ -109,7 +109,7 @@ class block_game extends block_base {
         $game->courseid = $COURSE->id;
         $game->userid   = $USER->id;
         $SESSION->game  = $game;
-        $game           =  get_game($game);
+        $game           =  load_game($game);
         
         if (isset($this->content)) {
             return $this->content;
@@ -122,13 +122,23 @@ class block_game extends block_base {
         $showicons = !isset($this->config->show_icons) || $this->config->show_icons == 1;
         $showrank = !isset($this->config->show_rank) || $this->config->show_rank == 1;
         $showscore = !isset($this->config->show_score) || $this->config->show_score == 1;
-        $shownivel = !isset($this->config->show_nivel) || $this->config->show_nivel == 1;
+        $showlevel = !isset($this->config->show_level) || $this->config->show_level == 1;
         
         //bonus of day
         $bonus_of_day = !isset($this->config->add_bonus_day) || $this->config->add_bonus_day == 1;
         if($bonus_of_day){
             bonus_of_day($game);
-            //$game =  get_game($game);
+        }
+        
+        //score activity notes
+        $score_activities = !isset($this->config->score_activities) || $this->config->score_activities == 1;
+         
+        if($score_activities){
+            score_activities($game);
+            $game   =  load_game($game);
+        }else{
+            no_score_activities($game);
+            $game   =  load_game($game);
         }
         
         $table = new html_table();
@@ -155,13 +165,13 @@ class block_game extends block_base {
             if($showscore){
                 $row = array();
                 $txt_icon = $showicons? $OUTPUT->pix_icon('score', $alt, 'block_game') : '';
-                $row[] = $txt_icon .' '. get_string('label_score', 'block_game').': '.$game->score.'';
+                $row[] = $txt_icon .' '. get_string('label_score', 'block_game').': '.($game->score+$game->score_activities).'';
                 $table->data[] = $row;
             }
-            if($shownivel){
+            if($showlevel){
                 $row = array();
-                $txt_icon = $showicons? $OUTPUT->pix_icon('nivel', $alt, 'block_game') : '';
-                $row[] = $txt_icon .' '. get_string('label_nivel', 'block_game').': '.$game->nivel.'';
+                $txt_icon = $showicons? $OUTPUT->pix_icon('level', $alt, 'block_game') : '';
+                $row[] = $txt_icon .' '. get_string('label_level', 'block_game').': '.$game->level.'';
                 $table->data[] = $row;
             }
 

@@ -46,17 +46,23 @@ class block_game_edit_form extends block_edit_form {
         $mform->setDefault('config_show_score', 0);
         $mform->addHelpButton('config_show_score', 'config_score', 'block_game');
 
-        // Control visibility of nivel.
-        $mform->addElement('selectyesno', 'config_show_nivel',
-                           get_string('config_nivel', 'block_game'));
-        $mform->setDefault('config_show_nivel', 0);
-        $mform->addHelpButton('config_show_nivel', 'config_nivel', 'block_game');
+        // Control visibility of level.
+        $mform->addElement('selectyesno', 'config_show_level',
+                           get_string('config_level', 'block_game'));
+        $mform->setDefault('config_show_level', 0);
+        $mform->addHelpButton('config_show_level', 'config_level', 'block_game');
 
         // Control visibility of icons.
         $mform->addElement('selectyesno', 'config_show_icons',
                            get_string('config_icons', 'block_game'));
         $mform->setDefault('config_show_icons', 1);
         $mform->addHelpButton('config_show_icons', 'config_icons', 'block_game');
+
+        // Control score activities.
+         $mform->addElement('selectyesno', 'config_score_activities',
+                           get_string('config_score_activities', 'block_game'));
+        $mform->setDefault('config_score_activities', 1);
+        $mform->addHelpButton('config_score_activities', 'config_score_activities', 'block_game');
 
         // Control bonus of day.
          $mform->addElement('selectyesno', 'config_add_bonus_day',

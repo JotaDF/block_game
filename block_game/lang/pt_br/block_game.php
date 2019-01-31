@@ -33,10 +33,12 @@ $string['config_rank'] = 'Mostrar Classificação';
 $string['config_rank_help'] = '<p>Mostrando Classificação.</p>';
 $string['config_score'] = 'Mostrar Pontos';
 $string['config_score_help'] = '<p>Mostrando Pontos.</p>';
-$string['config_nivel'] = 'Mostrar Nivel';
-$string['config_nivel_help'] = '<p>Mostrar Nível.</p>';
+$string['config_level'] = 'Mostrar Nível';
+$string['config_level_help'] = '<p>Mostrar Nível.</p>';
 $string['config_icons'] = 'Mostrar ícones';
 $string['config_icons_help'] = '<p>Mostrando ícones.</p>';
+$string['config_score_activities'] = 'Pontuar notas de atividades';
+$string['config_score_activities_help'] = '<p>Utilizar notas de atividades para pontuar.</p>';
 $string['config_bonus_day'] = 'Bônus do dia';
 $string['config_bonus_day_help'] = '<p>Habilitar bônus do dia, 10 pontos por dia de acesso.</p>';
 $string['config_title'] = 'Alterar título';
@@ -44,7 +46,7 @@ $string['config_title_help'] = '<p>Alterar o título do bloco.</p>';
 
 $string['label_rank'] = 'Classificação';
 $string['label_score'] = 'Pontos';
-$string['label_nivel'] = 'Nível';
+$string['label_level'] = 'Nível';
 
 $string['label_course'] = 'Curso';
 $string['label_you'] = 'Você';

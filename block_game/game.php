@@ -48,22 +48,24 @@ switch ($op) {
         $courseid       = optional_param('courseid', '0', PARAM_INT);
         $avatar         = optional_param('avatar', '0', PARAM_INT); 
         $score          = optional_param('score', '0', PARAM_INT); 
-        $nivel          = optional_param('nivel', '0', PARAM_INT); 
+        $level          = optional_param('level', '0', PARAM_INT); 
         $rank           = optional_param('rank', '0', PARAM_INT);         
-        $conquistas     = optional_param('conquistas', '', PARAM_SEQUENCE); 
-        $fases          = optional_param('fases', '', PARAM_SEQUENCE);
-        $recompensas    = optional_param('recompensas', '', PARAM_SEQUENCE); 
+        $achievements   = optional_param('achievements', '', PARAM_SEQUENCE); 
+        $rewards        = optional_param('rewards', '', PARAM_SEQUENCE); 
+        $phases         = optional_param('phases', '', PARAM_SEQUENCE);
+        $frame          = optional_param('frame ', '', PARAM_SEQUENCE);
         
         $game->id           = $id;
         $game->userid       = $userid;
         $game->courseid     = $courseid;
         $game->avatar       = $avatar;
         $game->score        = $score;
-        $game->nivel        = $nivel;
+        $game->level        = $level;
         $game->rank         = $rank;
-        $game->conquistas   = $conquistas; 
-        $game->fases        = $fases; 
-        $game->recompensas  = $recompensas;        
+        $game->achievements = $achievements; 
+        $game->rewards      = $rewards;        
+        $game->phases       = $phases; 
+        $game->frame        = $frame; 
         
         echo update_game($game);
         break;
@@ -87,40 +89,62 @@ switch ($op) {
         
         echo update_score_game($game);
         break;
-    case "nivel":
+    case "level":
         
         $id           = optional_param('id', '0', PARAM_INT); 
-        $nivel        = optional_param('nivel', '0', PARAM_INT); 
+        $level        = optional_param('level', '0', PARAM_INT); 
 //        echo ' id: '.$id;
-//        echo ' nivel: '.$nivel;
+//        echo ' level: '.$level;
         
         $game->id     = $id;
-        $game->nivel  = $nivel;
+        $game->level  = $level;
         
-        echo update_nivel_game($game);
+        echo update_level_game($game);
         break;
-     case "recompensas":
+
+    case "achievements":
         
-        $id             = optional_param('id', '0', PARAM_INT); 
-        $recompensas    = optional_param('recompensas', '', PARAM_SEQUENCE); 
+        $id         = optional_param('id', '0', PARAM_INT); 
+        $rewards    = optional_param('achievements', '', PARAM_SEQUENCE); 
+        
+        $game->id            = $id;
+        $game->achievements  = $achievements;
+        
+        echo update_achievements_game($game);
+        break;
+     case "rewards":
+        
+        $id         = optional_param('id', '0', PARAM_INT); 
+        $rewards    = optional_param('rewards', '', PARAM_SEQUENCE); 
         
         $game->id           = $id;
-        $game->recompensas  = $recompensas;
+        $game->rewards  = $rewards;
         
-        echo update_recompensas_game($game);
+        echo update_rewards_game($game);
         break;
         
-    case "fases":
+    case "phases":
         
         $id       = optional_param('id', '0', PARAM_INT); 
-        $fases    = optional_param('fases', '', PARAM_SEQUENCE); 
+        $phases   = optional_param('phases', '', PARAM_SEQUENCE); 
         
         $game->id     = $id;
-        $game->fases  = $fases;
+        $game->phases = $phases;
 
-        echo update_fases_game($game);
+        echo update_phases_game($game);
         break;
    
+    case "frame":
+        
+        $id      = optional_param('id', '0', PARAM_INT); 
+        $frame   = optional_param('frame', '', PARAM_SEQUENCE); 
+        
+        $game->id     = $id;
+        $game->frame  = $frame;
+
+        echo update_frame_game($game);
+        break;
+
     default:
         break;
 }
