@@ -36,7 +36,6 @@ function load_game($game) {
             return $gamedb;
 
         }else{
-            echo "<script> console.log('Não encontrou game do usuario');</script>";
                 //if there is no data
                 $new_game = new stdClass();
                 $new_game->courseid         = $game->courseid;
@@ -51,8 +50,8 @@ function load_game($game) {
                 $new_game->phases           = "";
                 $new_game->frame            = "";
                 $new_game->bonus_day        = null;
-                echo print_r($new_game);
                 $lastinsertid = $DB->insert_record('block_game', $new_game);
+
                 $new_game->id           = $lastinsertid;
                 
                 return $new_game;
