@@ -48,7 +48,7 @@ $string['config_bonus_day_help'] = '<p>Habilitar bônus do dia, 10 pontos por di
 $string['config_title'] = 'Alterar título';
 $string['config_title_help'] = '<p>Alterar o título do bloco.</p>';
 
-$string['set_avatar_title'] = 'Selecionar Avatar';
+$string['set_avatar_title'] = 'Selecione seu Avatar';
 $string['label_rank'] = 'Classificação';
 $string['label_score'] = 'Pontos';
 $string['label_level'] = 'Nível';

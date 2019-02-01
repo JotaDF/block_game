@@ -48,7 +48,7 @@ $string['config_bonus_day_help'] = '<p>Enable bonus of the day, 10 points per da
 $string['config_title'] = 'Edit title';
 $string['config_title_help'] = '<p>Editing the title of the block.</p>';
 
-$string['set_avatar_title'] = 'Select Avatar';
+$string['set_avatar_title'] = 'Select your Avatar';
 $string['label_course'] = 'Course';
 $string['label_rank'] = 'Ranking';
 $string['label_score'] = 'Score';

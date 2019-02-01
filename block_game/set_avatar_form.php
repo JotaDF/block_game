@@ -54,10 +54,9 @@ $PAGE->set_title(get_string('set_avatar_title', 'block_game'));
 $PAGE->set_heading(get_string('set_avatar_title', 'block_game'));
 
 echo $OUTPUT->header();
-//$outputhtml = '<div>Escolha seu Avatar:</div><br/><br/> ID_game:'.$game->id.' avatar:'.$avatar;
 $outputhtml .= '<table order="0">';
 $outputhtml .= '<tr>';
-for($i=1;$i<=9;$i++){
+for($i=1;$i<=20;$i++){
     $outputhtml .= '<td>';
     $outputhtml .= '<form action="" method="post">';
     $outputhtml .= '<input name="id" type="hidden" value="'.$couseid.'"/>';
@@ -70,9 +69,9 @@ for($i=1;$i<=9;$i++){
     $outputhtml.=' <input type="image" '.$txt_border.' src="'.$url_img.'" height="80" width="80"/> ';
     $outputhtml .= '</form>';
     $outputhtml .= '</td>';
-    if($i%3==0 && $i<9){
+    if($i%4==0 && $i<20){
         $outputhtml.='</tr><tr>';
-    }else if($i==9){
+    }else if($i==20){
         $outputhtml.='</tr>';
     }
 }
