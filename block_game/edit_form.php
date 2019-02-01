@@ -34,6 +34,12 @@ class block_game_edit_form extends block_edit_form {
         // Start block specific section in config form.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
+        // Control visibility of avatar.
+        $mform->addElement('selectyesno', 'config_use_avatar',
+                           get_string('config_avatar', 'block_game'));
+        $mform->setDefault('config_use_avatar', 0);
+        $mform->addHelpButton('config_use_avatar', 'config_avatar', 'block_game');
+
         // Control visibility of rank.
         $mform->addElement('selectyesno', 'config_show_rank',
                            get_string('config_rank', 'block_game'));

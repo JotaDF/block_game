@@ -119,8 +119,9 @@ class block_game extends block_base {
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
-        $showicons  = !isset($this->config->show_icons) || $this->config->show_icons == 1;
+        $showavatar = !isset($this->config->use_avatar) || $this->config->use_avatar == 1;
         $showrank   = !isset($this->config->show_rank) || $this->config->show_rank == 1;
+        $showicons  = !isset($this->config->show_icons) || $this->config->show_icons == 1;
         $showscore  = !isset($this->config->show_score) || $this->config->show_score == 1;
         $showlevel  = !isset($this->config->show_level) || $this->config->show_level == 1;
         
@@ -155,6 +156,9 @@ class block_game extends block_base {
             $row = array();
             $userpictureparams = array('size' => 16, 'link' => false, 'alt' => 'User');
             $userpicture = $OUTPUT->user_picture($USER, $userpictureparams);
+            if($showavatar){
+                $userpicture = '<a href="'.$CFG->wwwroot. '/blocks/game/set_avatar_form.php?id='.$COURSE->id.'&avatar='.$game->avatar.'">'.'<img src="'.$CFG->wwwroot.'/blocks/game/pix/a'.$game->avatar.'.png" height="40" width="40"/></a>';
+            }
             $row[] = $userpicture.' '.get_string('label_you', 'block_game');
             $table->data[] = $row;
             $row = array();
@@ -180,7 +184,10 @@ class block_game extends block_base {
                 $row[] = $txt_icon .' '. get_string('label_level', 'block_game').': '.$game->level.'';
                 $table->data[] = $row;
             }
-
+            $row = array();
+            //$txt_set_avatar='<a href="'.$CFG->wwwroot. '/blocks/game/set_avatar_form.php?id='.$COURSE->id.'&avatar='.$game->avatar.'"> avatar</a><br>';
+            //$row[] =$txt_set_avatar;
+            //$table->data[] = $row;
         } else {
             $row[] = '';
             $table->data[] = $row;

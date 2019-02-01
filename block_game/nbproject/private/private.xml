@@ -5,18 +5,16 @@
             <url>lang/pt_br/block_game.php</url>
             <bookmark id="1">
                 <name/>
-                <line>42</line>
+                <line>46</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/jota/Desktop/UNB/plugin%20game/simple_clock/db/access.php</file>
-            <file>file:/Users/jota/Desktop/UNB/plugin%20game/simple_clock/edit_form.php</file>
-            <file>file:/Users/jota/Desktop/UNB/plugin%20game/simple_clock/lang/en/block_game.php</file>
-            <file>file:/Users/jota/Desktop/UNB/plugin%20game/simple_clock/block_game.php</file>
-            <file>file:/Users/jota/Desktop/UNB/plugin%20game/simple_clock/version.php</file>
+            <file>file:/Users/jota/plugin_moodle/block_game/block_game.php</file>
+            <file>file:/Users/jota/plugin_moodle/block_game/edit_form.php</file>
+            <file>file:/Users/jota/plugin_moodle/block_game/set_avatar_form.php</file>
         </group>
     </open-files>
 </project-private>

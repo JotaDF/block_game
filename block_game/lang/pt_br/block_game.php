@@ -29,6 +29,8 @@ $string['pluginname'] = 'Bloco Game';
 $string['block_game:addinstance'] = 'Adcionar novo bloco Game';
 $string['block_game:myaddinstance'] = 'Adcionar novo bloco Game na sua Moodle page';
 
+$string['config_avatar'] = 'Utilizar Avatar';
+$string['config_avatar_help'] = '<p>Utilizando Avatar.</p>';
 $string['config_rank'] = 'Mostrar Classificação';
 $string['config_rank_help'] = '<p>Mostrando Classificação.</p>';
 $string['config_score'] = 'Mostrar Pontos';
@@ -46,6 +48,7 @@ $string['config_bonus_day_help'] = '<p>Habilitar bônus do dia, 10 pontos por di
 $string['config_title'] = 'Alterar título';
 $string['config_title_help'] = '<p>Alterar o título do bloco.</p>';
 
+$string['set_avatar_title'] = 'Selecionar Avatar';
 $string['label_rank'] = 'Classificação';
 $string['label_score'] = 'Pontos';
 $string['label_level'] = 'Nível';
