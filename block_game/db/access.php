@@ -23,6 +23,8 @@
  * @copyright  2019 Jose Wilson
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/*
+defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 
@@ -30,7 +32,22 @@ $capabilities = array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
-            'user' => CAP_ALLOW
+            'manager' => CAP_ALLOW,
+            'student'=>CAP_PROHIBIT,
+            'user' => CAP_PROHIBIT
+            
+        ),
+
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'
+    ),
+    
+    'moodle/block:edit' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW,
+            'student'=>CAP_PROHIBIT,
+            'user' => CAP_PROHIBIT
         ),
 
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
@@ -42,10 +59,33 @@ $capabilities = array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_BLOCK,
         'archetypes' => array(
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
+            'manager' => CAP_ALLOW,
+            'student'=>CAP_PROHIBIT,
+            'user' => CAP_PROHIBIT
         ),
 
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
 );
+*/
+defined('MOODLE_INTERNAL') || die();
+
+$capabilities = array(
+
+    'block/block_game:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW,
+            'student'=>CAP_PROHIBIT,
+            'user' => CAP_PROHIBIT
+        ),
+
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
+);
+ 
+ 
