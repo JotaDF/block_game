@@ -18,56 +18,11 @@
 /**
  * Block Game capabilities definition
  *
- * @package    contrib
- * @subpackage block_game
+ * @package    block_game
  * @copyright  2019 Jose Wilson
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-/*
-defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
-
-    'block/block_game:myaddinstance' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-            'student'=>CAP_PROHIBIT,
-            'user' => CAP_PROHIBIT
-            
-        ),
-
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    ),
-    
-    'moodle/block:edit' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-            'student'=>CAP_PROHIBIT,
-            'user' => CAP_PROHIBIT
-        ),
-
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    ),
-
-    'block/block_game:addinstance' => array(
-        'riskbitmask' => RISK_SPAM | RISK_XSS,
-
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-            'student'=>CAP_PROHIBIT,
-            'user' => CAP_PROHIBIT
-        ),
-
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ),
-);
-*/
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
@@ -80,12 +35,30 @@ $capabilities = array(
         'archetypes' => array(
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
-            'student'=>CAP_PROHIBIT,
+            'student' => CAP_PROHIBIT,
             'user' => CAP_PROHIBIT
         ),
 
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
+    'moodle/block_game:edit' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW,
+            'student' => CAP_PROHIBIT,
+            'user' => CAP_PROHIBIT
+        ),
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'
+    ),
+    'block/block_game:myaddinstance' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW,
+            'student' => CAP_PROHIBIT,
+            'user' => CAP_PROHIBIT
+        ),
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'
+    )
 );
- 
- 
