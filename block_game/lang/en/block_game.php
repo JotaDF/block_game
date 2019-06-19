@@ -18,8 +18,7 @@
 /**
  * Game block language strings
  *
- * @package    contrib
- * @subpackage block_game
+ * @package    block_game
  * @copyright  2019 Jose Wilson
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,6 +27,8 @@
 $string['pluginname'] = 'Block Game';
 $string['block_game:addinstance'] = 'Add a new Game block';
 $string['block_game:myaddinstance'] = 'Add a new Game block to the My Moodle page';
+
+$string['defaultdisplaysettings'] = 'Game pack general settings';
 
 $string['config_avatar'] = 'Use Avatar';
 $string['config_avatar_help'] = '<p>Using Avatar.</p>';
@@ -117,16 +118,16 @@ $string['label_you'] = 'You';
 $string['game_title_default'] = 'Game';
 $string['help'] = 'Help';
 
-//help page
+// Help page!
 $string['help_avatar_titulo'] = 'About avatar';
-$string['help_avatar_text'] = 'The game allows you to choose or change your avatar whenever you want. When The dotted icon appears means you have not yet chosen your avatar by clicking on it, or on your avatar, it takes you to the Avatar Selection page, just click on the desired avatar to make your choice.<br/> 
+$string['help_avatar_text'] = 'The game allows you to choose or change your avatar whenever you want. When The dotted icon appears means you have not yet chosen your avatar by clicking on it, or on your avatar, it takes you to the Avatar Selection page, just click on the desired avatar to make your choice.<br/>
 <br/><strong>Avatar tips :</strong><br/>
 - You can only change your avatar on the home page, off course! <br/>
 - The Gray-tone avatar will only be available when you reach the required level!<br/>';
 $string['help_info_user_titulo'] = 'Player Information';
 $string['help_info_user_text'] = 'By clicking on the player information icon you can see what your situation (Rating, Score and Level) in each course that is registered, that uses the Block Game plugin! You can still know your situation in the ambinte as a whole (General). And at the end it shows when badges the player has already won!';
 $string['help_score_titulo'] = 'About points';
-$string['help_score_text'] = 'The game has a scoring system because the score of the player will define their rank and the level that is. So it is very important that you know how to earn points to improve your placement and your level.<br/> 
+$string['help_score_text'] = 'The game has a scoring system because the score of the player will define their rank and the level that is. So it is very important that you know how to earn points to improve your placement and your level.<br/>
 <br/><strong>How to get points:</strong><br/>';
 $string['help_score_activities_text'] = '<strong>Activity Points</strong> - when doing the proposed activities in the courses that are enrolled, the grade achieved will be converted into points of the game! So get the best grades in the activities to earn more points!<br/>';
 $string['help_bonus_day_text'] = '<strong>Bonus of the day</strong> - Just to access the environment or your course you will receive, once a day, a bonus that will be added to your score!<br/>';
