@@ -18,12 +18,10 @@
 /**
  * Game block config form definition
  *
- * @package    contrib
- * @subpackage block_game
+ * @package    block_game
  * @copyright  2019 Jose Wilson
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot . '/blocks/game/libgame.php');
 
@@ -48,47 +46,46 @@ $PAGE->set_title(get_string('rank_game_title', 'block_game'));
 $PAGE->set_heading(get_string('rank_game_title', 'block_game'));
 
 echo $OUTPUT->header();
-if($game->config->show_rank==1){
+if ($game->config->show_rank == 1) {
     $outputhtml = '<div class="rank">';
-    if($courseid!=1){
-        $outputhtml .= '<h3>( '.$course->fullname.' )</h3><br/>';
-    }else{
-        $outputhtml .= '<h3>( '.get_string('general', 'block_game').' )</h3><br/>';
+    if ($courseid != 1) {
+        $outputhtml .= '<h3>( ' . $course->fullname . ' )</h3><br/>';
+    } else {
+        $outputhtml .= '<h3>( ' . get_string('general', 'block_game') . ' )</h3><br/>';
     }
     $outputhtml .= '<table border="0" width="100%">';
-    $rs_rank_list = rank_list($courseid);
-    $ord =1;
-    foreach ($rs_rank_list as $gamer) {
-        $txt_avatar='';
-        if($game->config->use_avatar==1){
-            //$txt_avatar= '<img  align="center" hspace="5" src="'.$CFG->wwwroot.'/blocks/game/pix/a'.$gamer->avatar.'.png" title="avatar"/>';
-            $txt_avatar= $OUTPUT->pix_icon('a'.$gamer->avatar, $alt, 'block_game');
-        } 
-        $txt_ord = $ord.'&ordm;';
-         $txt_user   = $txt_avatar.' ******** ';
-        if ($game->config->show_identity==0) {
-            $txt_user   = $txt_avatar.' '.$gamer->firstname;
+    $rs = rank_list($courseid);
+    $ord = 1;
+    foreach ($rs as $gamer) {
+        $avatartxt = '';
+        if ($game->config->use_avatar == 1) {
+            $avatartxt = $OUTPUT->pix_icon('a' . get_avatar_user($gamer->userid), $alt, 'block_game');
         }
-        $txt_pt     = $gamer->pt;
-        if($gamer->userid==$USER->id){
-            $txt_user = $txt_avatar.' <strong>'.$gamer->firstname.'</trong>';
-            $txt_pt = '<strong>'.$gamer->pt.'</trong>';
-            $txt_ord = '<strong>'.$ord.'&ordm;</trong>';
+        $ordtxt = $ord . '&ordm;';
+        $usertxt = $avatartxt . ' ******** ';
+        if ($game->config->show_identity == 0) {
+            $usertxt = $avatartxt . ' ' . $gamer->firstname;
+        }
+        $scoretxt = $gamer->pt;
+        if ($gamer->userid == $USER->id) {
+            $usertxt = $avatartxt . ' <strong>' . $gamer->firstname . '</trong>';
+            $scoretxt = '<strong>' . (int) $gamer->pt . '</trong>';
+            $ordtxt = '<strong>' . $ord . '&ordm;</trong>';
         }
         $outputhtml .= '<tr>';
         $outputhtml .= '<td>';
-        $outputhtml .= $txt_ord.'<hr/></td><td> '.$txt_user.' <hr/></td><td> '.$txt_pt.'<hr/></td>'; 
+        $outputhtml .= $ordtxt . '<hr/></td><td> ' . $usertxt . ' <hr/></td><td> ' . $scoretxt . '<hr/></td>';
         $outputhtml .= '</tr>';
         $ord++;
     }
     $outputhtml .= '</table>';
 
-    $users_not_start_game = getNoPlayers($courseid);
-    if($users_not_start_game>0){
-        if($users_not_start_game==1){
-            $outputhtml .= '<br/>('.$users_not_start_game.' '.get_string('not_start_game', 'block_game').' )';
-        }else{
-            $outputhtml .= '<br/>('.$users_not_start_game.' '.get_string('not_start_game_s', 'block_game').' )';
+    $usernotstart = get_no_players($courseid);
+    if ($usernotstart > 0) {
+        if ($usernotstart == 1) {
+            $outputhtml .= '<br/>(' . $usernotstart . ' ' . get_string('not_start_game', 'block_game') . ' )';
+        } else {
+            $outputhtml .= '<br/>(' . $usernotstart . ' ' . get_string('not_start_game_s', 'block_game') . ' )';
         }
     }
     $outputhtml .= '</div>';
