@@ -18,8 +18,7 @@
 /**
  * Game block language strings
  *
- * @package    contrib
- * @subpackage block_game
+ * @package    block_game
  * @copyright  2019 Jose Wilson
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,6 +27,8 @@
 $string['pluginname'] = 'Bloco Game';
 $string['block_game:addinstance'] = 'Adcionar novo bloco Game';
 $string['block_game:myaddinstance'] = 'Adcionar novo bloco Game na sua Moodle page';
+
+$string['defaultdisplaysettings'] = 'Configurações gerais do bloco Game';
 
 $string['config_avatar'] = 'Utilizar Avatar';
 $string['config_avatar_help'] = '<p>Utilizando Avatar.</p>';
@@ -118,16 +119,16 @@ $string['label_you'] = 'Você';
 $string['game_title_default'] = 'Game';
 $string['help'] = 'Ajuda';
 
-//help page
+// Help page!
 $string['help_avatar_titulo'] = 'Sobre o avatar';
-$string['help_avatar_text'] = 'O jogo permite que você escolha ou mude seu avatar a hora que desejar. Quando aparece o ícone pontilhado significa que você ainda não escolheu seu, clicando no mesmo, ou no seu avatar, ele te leva para a página de seleção, basta clicar no avatar desejado para fazer sua escolha.<br/> 
+$string['help_avatar_text'] = 'O jogo permite que você escolha ou mude seu avatar a hora que desejar. Quando aparece o ícone pontilhado significa que você ainda não escolheu seu, clicando no mesmo, ou no seu avatar, ele te leva para a página de seleção, basta clicar no avatar desejado para fazer sua escolha.<br/>
 <br/><strong>Dicas sobre avatar:</strong><br/>
 - Você só poderá trocar de avatar na página inicial, fora do curso! <br/>
 - O avatar em tom de cinza só estará disponível quando você atingir o nível necessário!<br/>';
 $string['help_info_user_titulo'] = 'Informações do jogador';
 $string['help_info_user_text'] = 'Clicando no ícone de informações do jogador você poderá ver qual a sua situação (Classificação, Pontuação e Nível) em cada curso que está matriculado, que utiliza o plugin de Bloco Game! Ainda poderá saber sua situação no ambiente como um todo (Geral). E ao final mostra quando emblemas o jogador já conquistou!<br/>';
 $string['help_score_titulo'] = 'Sobre pontuação';
-$string['help_score_text'] = 'O jogo possui sistema de pontuação pois a pontuação do jogador definirá a sua classificação e o nível que se encontra. Por isso é muito importando você saber como ganhar pontos para melhorar sua colocação e seu nível.<br/> 
+$string['help_score_text'] = 'O jogo possui sistema de pontuação pois a pontuação do jogador definirá a sua classificação e o nível que se encontra. Por isso é muito importando você saber como ganhar pontos para melhorar sua colocação e seu nível.<br/>
 <br/><strong>Como conseguir pontos:</strong><br/>';
 $string['help_score_activities_text'] = '<strong>Pontos de atividades</strong> - ao fazer as atividades propostas nos cursos que está matriculado, a nota alcançada será convertida em pontos do jogo! Portanto alcance as melhores notas nas atividades para ganhas mais pontos!<br/>';
 $string['help_bonus_day_text'] = '<strong>Bônus do dia</strong> - Só de acessar o ambiente ou o seu curso você receberá, uma única vez por dia, um bônus que será somado a sua pontuação! Para garantir seu bônus, acesse seu curso pelo menos uma vez por dia!<br/>';
