@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 
-    'block/block_game:addinstance' => array(
+    'block/game:addinstance' => array(
         'riskbitmask' => RISK_SPAM | RISK_XSS,
 
         'captype' => 'write',
@@ -41,7 +41,7 @@ $capabilities = array(
 
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
-    'moodle/block_game:edit' => array(
+    'moodle/game:edit' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
@@ -51,7 +51,7 @@ $capabilities = array(
         ),
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
     ),
-    'block/block_game:myaddinstance' => array(
+    'block/game:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
