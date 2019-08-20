@@ -118,19 +118,20 @@ class block_game extends block_base {
         $game->userid = $USER->id;
 
         $game = load_game($game);
-        $game->config = get_config('block_game');
-        if ($COURSE->id > 1) {
-            $game->config = $this->config;
+        $game->config = $this->config;
+        
+        if ($COURSE->id == 1) {
+            $game->config = get_config('block_game');
         }
         $SESSION->game = $game;
 
         // Get block ranking configuration.
         $cfggame = get_config('block_game');
 
-        if (!file_exists($CFG->dirroot . '/blocks/game/game.js')) {
-            $context = stream_context_create(array('http' => array('method' => 'POST', 'content' => '')));
-            $contents = file_get_contents($CFG->wwwroot . '/blocks/game/create_game_js.php', null, $context);
-        }
+//        if (!file_exists($CFG->dirroot . '/blocks/game/game.js')) {
+//            $context = stream_context_create(array('http' => array('method' => 'POST', 'content' => '')));
+//            $contents = file_get_contents($CFG->wwwroot . '/blocks/game/create_game_js.php', null, $context);
+//        }
         if (isset($this->content)) {
             return $this->content;
         }
@@ -179,6 +180,7 @@ class block_game extends block_base {
         }
 
         // Bonus of badge.
+        
         if (isset($cfggame->bonus_badge)) {
             $bonusbadge = $cfggame->bonus_badge;
             $game = score_badge($game, $bonusbadge);
@@ -186,14 +188,14 @@ class block_game extends block_base {
 
         if ($scoreactivities) {
             score_activities($game);
-            if ($levelnumber > 0) {
-                $game = ranking($game, $levelup, $levelnumber);
-            }
+            $game = ranking($game);
+            if($showlevel)
+                $game = set_level($game, $levelup, $levelnumber);
         } else {
             no_score_activities($game);
-            if ($levelnumber > 0) {
-                $game = ranking($game, $levelup, $levelnumber);
-            }
+            $game = ranking($game);
+            if($showlevel)
+                $game = set_level($game, $levelup, $levelnumber);
         }
 
         $table = new html_table();
@@ -223,7 +225,7 @@ class block_game extends block_base {
             $row[] = $userpicture . get_string('label_you', 'block_game') . $linkinfo;
             $table->data[] = $row;
             $row = array();
-            $icontxt = $OUTPUT->pix_icon('logo', $alt, 'theme');
+            $icontxt = $OUTPUT->pix_icon('logo', '', 'theme');
             $coursetxt = $COURSE->id == 1 ? '' : '(' . $COURSE->shortname . ')';
             $row[] = $coursetxt;
             $table->data[] = $row;

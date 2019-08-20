@@ -317,7 +317,7 @@ function update_frame_game($game) {
 function bonus_of_day($game, $bonus) {
     global $DB, $CFG;
     if (!empty($game->id)) {
-        if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mariadb") {
+        if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
             $sql = 'SELECT CURRENT_DATE() as hoje, bonus_day  FROM {block_game} WHERE courseid=? AND userid=?';
         } else if ($CFG->dbtype == "pgsql" || $CFG->dbtype == "postgres") {
             $sql = 'SELECT CURRENT_DATE as hoje, bonus_day  FROM {block_game} WHERE courseid=? AND userid=?';
@@ -344,7 +344,7 @@ function score_activities($game) {
     global $DB, $CFG;
 
     if (!empty($game->id)) {
-        if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mariadb") {
+        if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
             $sql = "SELECT FORMAT(SUM(g.finalgrade),0) as score_activities "
                     . "FROM {grade_grades} g INNER JOIN {grade_items} i ON g.itemid=i.id "
                     . "WHERE i.courseid=? AND i.itemtype='mod' AND g.userid=?";
@@ -396,7 +396,7 @@ function score_badge($game, $value) {
 
     $badges = array();
     if (!empty($game->userid)) {
-        if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mariadb") {
+        if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
             $sql = "SELECT cc.userid, cc.course, IFNULL(cc.timecompleted, 0) timecompleted
                 FROM {course_completions} cc
                 WHERE cc.userid = ?
@@ -433,12 +433,12 @@ function score_badge($game, $value) {
  * @param array $levelnumber
  * @return mixed
  */
-function ranking($game, $levelup, $levelnumber) {
+function ranking($game) {
     global $DB, $CFG;
 
     if (!empty($game->id)) {
         if ($game->courseid == 1) {
-            if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mariadb") {
+            if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
                 $sql = 'SELECT g.userid, u.firstname,SUM(g.score) sum_score,'
                         . ' SUM(IFNULL(g.score_activities, 0)) sum_score_activities,'
                         . ' SUM(IFNULL(g.score_badges, 0)) sum_score_badges,'
@@ -460,20 +460,14 @@ function ranking($game, $levelup, $levelnumber) {
             foreach ($ranking as $rs) {
                 if ($rs->userid == $game->userid) {
                     $game->rank = $poisicao;
-                    if (sets_level($rs->pt, $levelup) >= $levelnumber) {
-                        $level = $levelnumber;
-                    } else {
-                        $level = sets_level($rs->pt, $levelup);
-                    }
                     $game->score = $rs->sum_score;
                     $game->score_activities = $rs->sum_score_activities;
-                    $game->level = $level;
                     break;
                 }
                 $poisicao++;
             }
         } else {
-            if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mariadb") {
+            if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
                 $sql = 'SELECT g.userid, u.firstname,SUM(g.score) sum_score,'
                         . ' SUM(IFNULL(g.score_activities, 0)) sum_score_activities,'
                         . ' (SUM(score)+SUM(IFNULL(score_activities, 0))) pt'
@@ -495,19 +489,39 @@ function ranking($game, $levelup, $levelnumber) {
             foreach ($ranking as $rs) {
                 if ($rs->userid == $game->userid) {
                     $game->rank = $poisicao;
-                    if (sets_level($rs->pt, $levelup) >= $levelnumber) {
-                        $level = $levelnumber;
-                    } else {
-                        $level = sets_level($rs->pt, $levelup);
-                    }
-                    $game->level = $level;
+                    $game->score = $rs->sum_score;
+                    $game->score_activities = $rs->sum_score_activities;
                     break;
                 }
                 $poisicao++;
             }
         }
-        $DB->execute("UPDATE {block_game} SET rank=?,level=? WHERE id=?", array($game->rank, $game->level, $game->id));
+        $DB->execute("UPDATE {block_game} SET rank=?, score=?, score_activities=? WHERE id=?", array($game->rank, $game->score, $game->score_activities, $game->id));
     }
+    return $game;
+}
+
+// Seting new level.
+/**
+ * Return set level user
+ *
+ * @param int $scorefull
+ * @param array $levelup
+ * @return int
+ */
+function set_level($game, $levelup, $levelnumber) {
+    global $DB, $CFG;
+
+    if (!empty($game->id)) {
+        $pt = $game->score + $game->score_activities;
+        if (sets_level($pt, $levelup) >= $levelnumber) {
+            $level = $levelnumber;
+        } else {
+            $level = sets_level($pt, $levelup);
+        }
+        $game->level = $level;
+    } 
+    $DB->execute("UPDATE {block_game} SET level=? WHERE id=?", array( $game->level, $game->id));
     return $game;
 }
 
@@ -591,7 +605,7 @@ function rank_list($courseid) {
 
     if (!empty($courseid)) {
         if ($courseid == 1) {
-            if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mariadb") {
+            if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
                 $sql = 'SELECT g.userid, u.firstname, g.avatar,SUM(g.score) sum_score,'
                         . ' SUM(IFNULL(g.score_activities, 0)) sum_score_activities,'
                         . ' SUM(IFNULL(g.score_badges, 0)) sum_score_badges,'
@@ -609,7 +623,7 @@ function rank_list($courseid) {
             $ranking = $DB->get_records_sql($sql);
             return $ranking;
         } else {
-            if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mariadb") {
+            if ($CFG->dbtype == "mysql" || $CFG->dbtype == "mysqli" || $CFG->dbtype == "mariadb") {
                 $sql = 'SELECT g.userid, u.firstname, g.avatar,SUM(g.score) sum_score,'
                         . ' SUM(IFNULL(g.score_activities, 0)) sum_score_activities,'
                         . ' (SUM(score)+SUM(IFNULL(score_activities, 0))) pt'

@@ -43,7 +43,7 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect('block_game/bonus_day', get_string('config_bonus_day', 'block_game'),
         '', -2, $bonusdayoptions));
 
-    $bonusbadgeoptions = array(100 => 100, 200 => 200, 500 => 500, 1000 => 1000, 2000 => 2000);
+    $bonusbadgeoptions = array(0 => 0, 100 => 100, 200 => 200, 500 => 500, 1000 => 1000, 2000 => 2000);
     $settings->add(new admin_setting_configselect('block_game/bonus_badge', get_string('config_bonus_badge', 'block_game'),
         '', -2, $bonusbadgeoptions));
 
