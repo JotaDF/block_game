@@ -88,14 +88,18 @@ $string['level_12_required'] = 'Necessário Nível 12';
 $string['level_13_required'] = 'Necessário Nível 13';
 $string['level_14_required'] = 'Necessário Nível 14';
 $string['level_15_required'] = 'Necessário Nível 15';
+$string['next_level'] = 'Próximo nível';
 
-
+$string['config_name_course'] = 'Mostrar nome do curso';
+$string['config_name_course_help'] = 'Mostrar nome do curso no bloco';
 $string['config_info'] = 'Mostrar informações do jogador';
+$string['config_info_help'] = 'Mostrar informações do jogador de todos os cursos que o mesmo participa';
+$string['config_avatar_course'] = 'Permitir a mudança de avatar no curso';
 $string['config_icons_help'] = '<p>Mostrando ícones.</p>';
-$string['config_score_activities'] = 'Pontuar notas de atividades';
-$string['config_score_activities_help'] = '<p>Utilizar notas de atividades para pontuar.</p>';
+$string['config_score_activities'] = 'Pontuar notas de atividades.';
+$string['config_score_activities_help'] = '<p>Utilizar notas de atividades para pontuar. Apenas para escalas numéricas!</p>';
 $string['config_bonus_day'] = 'Bônus do dia';
-$string['config_bonus_day_help'] = '<p>Habilitar bônus do dia, 10 pontos por dia de acesso.</p>';
+$string['config_bonus_day_help'] = '<p>Habilitar bônus do dia, difinir pontos por dia de acesso.</p>';
 $string['config_bonus_badge'] = 'Bônus por emblema';
 $string['config_bonus_badge_help'] = '<p>Valor de bônus por emblema de curso concluído.</p>';
 $string['config_title'] = 'Alterar título';
@@ -142,4 +146,5 @@ $string['help_rank_list_restrict_text'] = '<strong>Lista de classificação</str
 $string['help_rank_criterion_text'] = '<strong>Critérios de desempate</strong> - O total de pontos define a classificação dos usuários, porém em algumas situações esse total pode ser o mesmo de outros jogadores ocorrendo um empate, nesse caso a posição do jogador é definida de seguindo os seguintes critérios:<br/><br/><strong>1&ordm; </strong> - O jogador que tiver maior pontuação conquistada por emblema;<br/><strong>2&ordm; </strong> - O jogador que tiver maior pontuação conquistada por atividades;<br/><strong>3&ordm; </strong> - O jogador mais antigo do ambiente, ou seja, que foi cadastrado primeiro.<br/>';
 $string['help_level_titulo'] = 'Sobre Nível';
 $string['help_level_text'] = 'O nível do jogador é definido pela pontuação total que ele alcançou! Podemos dizer que quanto maior é o nível alcançado, maior é o seu grau de maturidade do jogador! No jogo o nível também é utilizado para liberar avatares que inicialmente estão bloqueados. Quando mais você participa dos cursos, mais pontos ganha e consequentemente alcançará níveis mais altos!<br/><br/><strong>Veja qual a pontuação necessária para alcançar cada nível:</strong><br/>';
+$string['help_progress_level_text'] = 'A barra de progresso indica quanto falta para alcançar o próximo nível.';
 
