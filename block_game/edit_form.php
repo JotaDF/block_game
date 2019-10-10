@@ -46,14 +46,19 @@ class block_game_edit_form extends block_edit_form {
 
         // Start block specific section in config form.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
-
-        // Game block instance alternate title.
-        $mform->addElement('text', 'config_game_title', get_string('config_title', 'block_game'));
-        $mform->setDefault('config_game_title', '');
-        $mform->setType('config_game_title', PARAM_MULTILANG);
-        $mform->addHelpButton('config_game_title', 'config_title', 'block_game');
-
-        if ($SESSION->game->courseid > 1) {
+        
+    if ($SESSION->game->courseid > 1) {
+            // Game block instance alternate title.
+            $mform->addElement('text', 'config_game_title', get_string('config_title', 'block_game'));
+            $mform->setDefault('config_game_title', '');
+            $mform->setType('config_game_title', PARAM_MULTILANG);
+            $mform->addHelpButton('config_game_title', 'config_title', 'block_game');
+        
+            // Control visibility name course.
+            $mform->addElement('selectyesno', 'config_show_name_course', get_string('config_name_course', 'block_game'));
+            $mform->setDefault('config_show_name_course', 1);
+            $mform->addHelpButton('config_show_name_course', 'config_name_course', 'block_game');
+        
             // Control visibility of link info user game.
             $mform->addElement('selectyesno', 'config_show_info', get_string('config_info', 'block_game'));
             $mform->setDefault('config_show_info', 1);
@@ -67,34 +72,33 @@ class block_game_edit_form extends block_edit_form {
             // Control bonus of day.
             $bonusdayoptions = array(0 => 0, 5 => 5, 10 => 10, 15 => 15, 20 => 20, 50 => 50, 100 => 100);
             $mform->addElement('select', 'config_bonus_day', get_string('config_bonus_day', 'block_game'), $bonusdayoptions);
-            $mform->addHelpButton('config_add_bonus_day', 'config_bonus_day', 'block_game');
+            $mform->addHelpButton('config_bonus_day', 'config_bonus_day', 'block_game');
 
             // Control visibility of rank.
             $mform->addElement('selectyesno', 'config_show_rank', get_string('config_rank', 'block_game'));
-            $mform->setDefault('config_show_rank', 0);
+            $mform->setDefault('config_show_rank', 1);
             $mform->addHelpButton('config_show_rank', 'config_rank', 'block_game');
 
             // Preserve user identity.
             $mform->addElement('selectyesno', 'config_show_identity', get_string('config_identity', 'block_game'));
             $mform->setDefault('config_show_identity', 0);
-            // ...$mform->hideIf('config_show_identity', 'config_show_rank', 'eq', 0);!
             $mform->disabledIf('config_show_identity', 'config_show_rank', 'eq', 0);
             $mform->addHelpButton('config_show_identity', 'config_identity', 'block_game');
 
             // Control visibility of score.
             $mform->addElement('selectyesno', 'config_show_score', get_string('config_score', 'block_game'));
-            $mform->setDefault('config_show_score', 0);
+            $mform->setDefault('config_show_score', 1);
             $mform->addHelpButton('config_show_score', 'config_score', 'block_game');
 
             // Control visibility of level.
             $mform->addElement('selectyesno', 'config_show_level', get_string('config_level', 'block_game'));
-            $mform->setDefault('config_show_level', 0);
+            $mform->setDefault('config_show_level', 1);
             $mform->addHelpButton('config_show_level', 'config_level', 'block_game');
 
             // Options controlling level up.
             $levelupoptions = array(4 => 4, 6 => 6, 8 => 8, 10 => 10, 12 => 12, 15 => 15);
             $mform->addElement('select', 'config_level_number', get_string('config_level_number', 'block_game'), $levelupoptions);
-            // ...$mform->hideIf('config_level_number', 'config_show_level', 'eq', 0);!
+            $mform->setDefault('config_level_number', 4);
             $mform->disabledIf('config_level_number', 'config_show_level', 'eq', 0);
             $mform->addHelpButton('config_level_number', 'config_level_number', 'block_game');
 
@@ -105,11 +109,9 @@ class block_game_edit_form extends block_edit_form {
             for ($i = 1; $i <= count($leveluppoints); $i++) {
                 $mform->addElement('text', 'config_level_up' . $i, get_string('config_level_up' . $i, 'block_game'));
                 $mform->setDefault('config_level_up' . $i, $leveluppoints[$i]);
-                // ...$mform->hideIf('config_level_up' . $i, 'config_show_level', 'eq', 0);!
                 $mform->disabledIf('config_level_up' . $i, 'config_show_level', 'eq', 0);
                 foreach ($levelupoptions as $level) {
                     if ($level < $i) {
-                        // ...$mform->hideIf('config_level_up' . $i, 'config_level_number', 'eq', $level);
                         $mform->disabledIf('config_level_up' . $i, 'config_level_number', 'eq', $level);
                     }
                 }

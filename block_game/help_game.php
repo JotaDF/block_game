@@ -139,9 +139,13 @@ if ($game->config->show_level == 1) {
     $levelup[14]   = (int)$game->config->level_up15;
     $outputhtml .= '<p>';
     for ($i = 0; $i < $game->config->level_number; $i++) {
-        $outputhtml .= ' - '.get_string('label_level', 'block_game').' '.($i + 1).': '.$levelup[$i].'pts <br/>';
+        $outputhtml .= ' - ' . get_string('label_level', 'block_game') . ' ' . ($i + 1) . ': '.$levelup[$i] .'pts <br/>';
     }
+    $outputhtml .= '</p>';
+    $outputhtml .= '<p>'. get_string('help_progress_level_text', 'block_game') . '<br/>';
+    $outputhtml .= '<img src="'.$CFG->wwwroot.'/blocks/game/pix/help_progress_level.png" align="center" hspace="2"/>';
     $outputhtml .= '</p><hr/></td></tr>';
+    
 }
 $outputhtml .= '</table>';
 $outputhtml .= '</div>';

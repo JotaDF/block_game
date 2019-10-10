@@ -46,6 +46,10 @@ $PAGE->set_title(get_string('rank_game_title', 'block_game'));
 $PAGE->set_heading(get_string('rank_game_title', 'block_game'));
 
 echo $OUTPUT->header();
+
+if($courseid == 1){
+    $game->config = get_config('block_game');
+}
 if ($game->config->show_rank == 1) {
     $outputhtml = '<div class="rank">';
     if ($courseid != 1) {
@@ -64,11 +68,11 @@ if ($game->config->show_rank == 1) {
         $ordtxt = $ord . '&ordm;';
         $usertxt = $avatartxt . ' ******** ';
         if ($game->config->show_identity == 0) {
-            $usertxt = $avatartxt . ' ' . $gamer->firstname;
+            $usertxt = $avatartxt . ' ' . $gamer->firstname . ' ' . $gamer->lastname;
         }
         $scoretxt = $gamer->pt;
         if ($gamer->userid == $USER->id) {
-            $usertxt = $avatartxt . ' <strong>' . $gamer->firstname . '</trong>';
+            $usertxt = $avatartxt . ' <strong>' . $gamer->firstname . ' ' . $gamer->lastname . '</trong>';
             $scoretxt = '<strong>' . (int) $gamer->pt . '</trong>';
             $ordtxt = '<strong>' . $ord . '&ordm;</trong>';
         }

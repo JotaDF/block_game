@@ -29,9 +29,12 @@ if ($ADMIN->fulltree) {
 
     $settings->add(new admin_setting_heading('block_game/displaysettings',
             get_string('defaultdisplaysettings', 'block_game'), ''));
-
+    
     $settings->add(new admin_setting_configcheckbox('block_game/use_avatar',
         get_string('config_avatar', 'block_game'), '', 1));
+
+    $settings->add(new admin_setting_configcheckbox('block_game/change_avatar_course',
+        get_string('config_avatar_course', 'block_game'), '', 0));
 
     $settings->add(new admin_setting_configcheckbox('block_game/show_info',
         get_string('config_info', 'block_game'), '', 1));
