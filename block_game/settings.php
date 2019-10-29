@@ -40,7 +40,7 @@ if ($ADMIN->fulltree) {
         get_string('config_info', 'block_game'), '', 1));
 
     $settings->add(new admin_setting_configcheckbox('block_game/score_activities',
-        get_string('config_info', 'block_game'), '', 1));
+        get_string('config_score_activities', 'block_game'), '', 1));
 
     $bonusdayoptions = array(0 => 0, 5 => 5, 10 => 10, 15 => 15, 20 => 20, 50 => 50, 100 => 100);
     $settings->add(new admin_setting_configselect('block_game/bonus_day', get_string('config_bonus_day', 'block_game'),

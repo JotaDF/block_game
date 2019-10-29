@@ -79,6 +79,11 @@ class block_game_edit_form extends block_edit_form {
             $mform->setDefault('config_show_rank', 1);
             $mform->addHelpButton('config_show_rank', 'config_rank', 'block_game');
 
+            // Control limit rank.
+            $limitrankoptions = array(0 => 0, 5 => 5, 10 => 10, 20 => 20, 50 => 50, 100 => 100);
+            $mform->addElement('select', 'config_limit_rank', get_string('config_limit_rank', 'block_game'), $limitrankoptions);
+            $mform->addHelpButton('config_limit_rank', 'config_limit_rank', 'block_game');
+            
             // Preserve user identity.
             $mform->addElement('selectyesno', 'config_show_identity', get_string('config_identity', 'block_game'));
             $mform->setDefault('config_show_identity', 0);
