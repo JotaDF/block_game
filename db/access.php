@@ -26,39 +26,22 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-
-    'block/game:addinstance' => array(
-        'riskbitmask' => RISK_SPAM | RISK_XSS,
-
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW,
-            'student' => CAP_PROHIBIT,
-            'user' => CAP_PROHIBIT
-        ),
-
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ),
-    'moodle/game:edit' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-            'student' => CAP_PROHIBIT,
-            'user' => CAP_PROHIBIT
-        ),
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    ),
     'block/game:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
-            'manager' => CAP_ALLOW,
-            'student' => CAP_PROHIBIT,
-            'user' => CAP_PROHIBIT
+            'user' => CAP_ALLOW
         ),
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    )
+    ),
+    'block/game:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ),
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
 );
