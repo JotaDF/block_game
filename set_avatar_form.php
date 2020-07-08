@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,7 +13,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 
 /**
  * Game block config form definition
@@ -40,7 +38,6 @@ $game = $DB->get_record('block_game', array('courseid' => $couseid, 'userid' => 
 
 $cfggame = get_config('block_game');
 $changeavatar = !isset($cfggame->change_avatar_course) || $cfggame->change_avatar_course == 1;
-
 if ($avatar > 0) {
     $gamenew = new stdClass();
     $gamenew->id = $game->id;
@@ -58,7 +55,7 @@ $PAGE->set_context(context_course::instance($couseid));
 $PAGE->set_title(get_string('set_avatar_title', 'block_game'));
 $PAGE->set_heading(get_string('set_avatar_title', 'block_game'));
 echo $OUTPUT->header();
-
+$outputhtml = '';
 if ($changeavatar || $couseid == 1) {
     $outputhtml .= '<table order="0">';
     $outputhtml .= '<tr>';
@@ -78,49 +75,57 @@ if ($changeavatar || $couseid == 1) {
             $outputhtml .= ' <input type="image" ' . $border . ' src="' . $img . '" height="80" width="80"/> ';
         }
         if ($i > 8 && $i <= 12 && $game->level < 1) {
-            $outputhtml .= ' <img style="filter: grayscale(100%);" src="' . $img . '" title="' . get_string('level_1_required', 'block_game');
+            $outputhtml .= ' <img style="filter: grayscale(100%);" src="';
+            $outputhtml .= $img . '" title="' . get_string('level_1_required', 'block_game');
             $outputhtml .= '" alt="' . get_string('level_1_required', 'block_game') . '" height="80" width="80"/> ';
         } else if ($i > 8 && $i <= 12 && $game->level >= 1) {
             $outputhtml .= ' <input type="image" ' . $border . ' src="' . $img . '" height="80" width="80"/> ';
         }
         if ($i > 12 && $i <= 16 && $game->level < 2) {
-            $outputhtml .= ' <img style="filter: grayscale(100%);" src="' . $img . '" title="' . get_string('level_2_required', 'block_game');
+            $outputhtml .= ' <img style="filter: grayscale(100%);" src="';
+            $outputhtml .= $img . '" title="' . get_string('level_2_required', 'block_game');
             $outputhtml .= '" alt="' . get_string('level_2_required', 'block_game') . '" height="80" width="80"/> ';
         } else if ($i > 12 && $i <= 16 && $game->level >= 2) {
             $outputhtml .= ' <input type="image" ' . $border . ' src="' . $img . '" height="80" width="80"/> ';
         }
         if ($i > 16 && $i <= 20 && $game->level < 3) {
-            $outputhtml .= ' <img style="filter: grayscale(100%);" src="' . $img . '" title="' . get_string('level_3_required', 'block_game');
+            $outputhtml .= ' <img style="filter: grayscale(100%);" src="';
+            $outputhtml .= $img . '" title="' . get_string('level_3_required', 'block_game');
             $outputhtml .= '" alt="' . get_string('level_3_required', 'block_game') . '" height="80" width="80"/> ';
         } else if ($i > 16 && $i <= 20 && $game->level >= 3) {
             $outputhtml .= ' <input type="image" ' . $border . ' src="' . $img . '" height="80" width="80"/> ';
         }
         if ($i > 20 && $i <= 25 && $game->level < 4) {
-            $outputhtml .= ' <img style="filter: grayscale(100%);" src="' . $img . '" title="' . get_string('level_4_required', 'block_game');
+            $outputhtml .= ' <img style="filter: grayscale(100%);" src="';
+            $outputhtml .= $img . '" title="' . get_string('level_4_required', 'block_game');
             $outputhtml .= '" alt="' . get_string('level_3_required', 'block_game') . '" height="80" width="80"/> ';
         } else if ($i > 20 && $i <= 25 && $game->level >= 4) {
             $outputhtml .= ' <input type="image" ' . $border . ' src="' . $img . '" height="80" width="80"/> ';
         }
         if ($i > 25 && $i <= 30 && $game->level < 5) {
-            $outputhtml .= ' <img style="filter: grayscale(100%);" src="' . $img . '" title="' . get_string('level_5_required', 'block_game');
+            $outputhtml .= ' <img style="filter: grayscale(100%);" src="';
+            $outputhtml .= $img . '" title="' . get_string('level_5_required', 'block_game');
             $outputhtml .= '" alt="' . get_string('level_3_required', 'block_game') . '" height="80" width="80"/> ';
         } else if ($i > 25 && $i <= 30 && $game->level >= 5) {
             $outputhtml .= ' <input type="image" ' . $border . ' src="' . $img . '" height="80" width="80"/> ';
         }
         if ($i > 30 && $i <= 35 && $game->level < 6) {
-            $outputhtml .= ' <img style="filter: grayscale(100%);" src="' . $img . '" title="' . get_string('level_6_required', 'block_game');
+            $outputhtml .= ' <img style="filter: grayscale(100%);" src="';
+            $outputhtml .= $img . '" title="' . get_string('level_6_required', 'block_game');
             $outputhtml .= '" alt="' . get_string('level_3_required', 'block_game') . '" height="80" width="80"/> ';
         } else if ($i > 30 && $i <= 35 && $game->level >= 6) {
             $outputhtml .= ' <input type="image" ' . $border . ' src="' . $img . '" height="80" width="80"/> ';
         }
         if ($i > 35 && $i <= 40 && $game->level < 7) {
-            $outputhtml .= ' <img style="filter: grayscale(100%);" src="' . $img . '" title="' . get_string('level_7_required', 'block_game');
+            $outputhtml .= ' <img style="filter: grayscale(100%);" src="';
+            $outputhtml .= $img . '" title="' . get_string('level_7_required', 'block_game');
             $outputhtml .= '" alt="' . get_string('level_3_required', 'block_game') . '" height="80" width="80"/> ';
         } else if ($i > 35 && $i <= 40 && $game->level >= 7) {
             $outputhtml .= ' <input type="image" ' . $border . ' src="' . $img . '" height="80" width="80"/> ';
         }
         if ($i > 40 && $i <= 44 && $game->level < 8) {
-            $outputhtml .= ' <img style="filter: grayscale(100%);" style="filter: grayscale(100%);" src="' . $img . '" title="' . get_string('level_8_required', 'block_game');
+            $outputhtml .= ' <img style="filter: grayscale(100%);" style="filter: grayscale(100%);" src="';
+            $outputhtml .= $img . '" title="' . get_string('level_8_required', 'block_game');
             $outputhtml .= '" alt="' . get_string('level_3_required', 'block_game') . '" height="80" width="80"/> ';
         } else if ($i > 40 && $i <= 44 && $game->level >= 8) {
             $outputhtml .= ' <input type="image" ' . $border . ' src="' . $img . '" height="80" width="80"/> ';

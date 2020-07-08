@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Game block config form definition
  *
@@ -47,10 +46,10 @@ $PAGE->set_heading(get_string('rank_game_title', 'block_game'));
 
 echo $OUTPUT->header();
 $cfggame = get_config('block_game');
-if($courseid == 1){
+if ($courseid == 1) {
     $game->config = $cfggame;
 }
-$limit=0;
+$limit = 0;
 if ($game->config->show_rank == 1) {
     $outputhtml = '<div class="rank">';
     if ($courseid != 1) {
@@ -69,7 +68,7 @@ if ($game->config->show_rank == 1) {
     foreach ($rs as $gamer) {
         $avatartxt = '';
         if ($cfggame->use_avatar == 1) {
-            $avatartxt = $OUTPUT->pix_icon('a' . get_avatar_user($gamer->userid), $alt, 'block_game');
+            $avatartxt = $OUTPUT->pix_icon('a' . get_avatar_user($gamer->userid), 'Avatar', 'block_game');
         }
         $ordtxt = $ord . '&ordm;';
         $usertxt = $avatartxt . ' ******** ';
@@ -86,7 +85,7 @@ if ($game->config->show_rank == 1) {
         $outputhtml .= '<td>';
         $outputhtml .= $ordtxt . '<hr/></td><td> ' . $usertxt . ' <hr/></td><td> ' . $scoretxt . '<hr/></td>';
         $outputhtml .= '</tr>';
-        
+
         if ($limit > 0 && $limit == $ord) {
             break;
         }

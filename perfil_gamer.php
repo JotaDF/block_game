@@ -50,7 +50,7 @@ $PAGE->set_title(get_string('perfil_gamer_title', 'block_game'));
 $PAGE->set_heading(get_string('perfil_gamer_title', 'block_game'));
 
 echo $OUTPUT->header();
-$outputhtml .= '<div class="boxs">';
+$outputhtml = '<div class="boxs">';
 
 if ($couseid == 1) {
     if ($showavatar == 1) {
@@ -123,17 +123,21 @@ if ($couseid == 1) {
     }
     $outputhtml .= '  <strong>' . $USER->firstname . '</strong><br/>';
     if ($showrank == 1) {
-        $outputhtml .= '<br/><img src="' . $CFG->wwwroot . '/blocks/game/pix/big_rank.png" align="center" hspace="12"/><strong>';
-        $outputhtml .= get_string('label_rank', 'block_game');
+        $outputhtml .= '<br/>';
+        $outputhtml .= '<img src="' . $CFG->wwwroot . '/blocks/game/pix/big_rank.png" align="center" hspace="12"/>';
+        $outputhtml .= '<strong>' . get_string('label_rank', 'block_game');
         $outputhtml .= ': ' . $game->rank . '&ordm; / ' . get_players($game->courseid) . '</strong><br/>';
     }
     if ($showscore == 1) {
-        $outputhtml .= '<br/><img src="' . $CFG->wwwroot . '/blocks/game/pix/big_score.png" align="center" hspace="12"/><strong>';
-        $outputhtml .= get_string('label_score', 'block_game') . ': ' . ($game->score + $game->score_activities) . '</strong><br/>';
+        $outputhtml .= '<br/>';
+        $outputhtml .= '<img src="' . $CFG->wwwroot . '/blocks/game/pix/big_score.png" align="center" hspace="12"/>';
+        $outputhtml .= '<strong>' . get_string('label_score', 'block_game') . ': ';
+        $outputhtml .= ($game->score + $game->score_activities) . '</strong><br/>';
     }
     if ($showlevel == 1) {
-        $outputhtml .= '<br/><img src="' . $CFG->wwwroot . '/blocks/game/pix/big_level.png" align="center" hspace="12"/><strong>';
-        $outputhtml .= get_string('label_level', 'block_game') . ': ' . $game->level . '</strong><br/>';
+        $outputhtml .= '<br/>';
+        $outputhtml .= '<img src="' . $CFG->wwwroot . '/blocks/game/pix/big_level.png" align="center" hspace="12"/>';
+        $outputhtml .= '<strong>' . get_string('label_level', 'block_game') . ': ' . $game->level . '</strong><br/>';
     }
     $outputhtml .= '</td>';
     $outputhtml .= '</tr>';

@@ -60,7 +60,8 @@ if ($cfggame->use_avatar == 1) {
     $outputhtml .= '<tr>';
     $outputhtml .= '<td colspan="2" align="center"><h3>'.get_string('help_avatar_titulo', 'block_game').'</h3></td>';
     $outputhtml .= '</tr><tr>';
-    $outputhtml .= '<td valign="bottom"><img src="'.$CFG->wwwroot.'/blocks/game/pix/a0.png" align="center" hspace="12"/><hr/></td>';
+    $outputhtml .= '<td valign="bottom">';
+    $outputhtml .= '<img src="'.$CFG->wwwroot.'/blocks/game/pix/a0.png" align="center" hspace="12"/><hr/></td>';
     $outputhtml .= '<td valign="bottom"><p align="justify">'.get_string('help_avatar_text', 'block_game').'</p><hr/></td>';
     $outputhtml .= '</tr>';
 }
@@ -145,7 +146,6 @@ if ($game->config->show_level == 1) {
     $outputhtml .= '<p>'. get_string('help_progress_level_text', 'block_game') . '<br/>';
     $outputhtml .= '<img src="'.$CFG->wwwroot.'/blocks/game/pix/help_progress_level.png" align="center" hspace="2"/>';
     $outputhtml .= '</p><hr/></td></tr>';
-    
 }
 $outputhtml .= '</table>';
 $outputhtml .= '</div>';
