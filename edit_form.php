@@ -143,11 +143,17 @@ class block_game_edit_form extends block_edit_form {
             $sections = get_sections_course($SESSION->game->courseid);
             foreach ($sections as $section) {
                 $limit = array(0 => 0, 5 => 5, 10 => 10, 20 => 20, 30 => 30, 50 => 50, 60 => 60, 80 => 80, 100 => 100);
+<<<<<<< HEAD
                 $mform->addElement('select', 'config_section_' . $section->section, get_string('section', 'block_game')
                         . ' ' . $section->section, $limit);
                 $mform->addHelpButton('config_section_' . $section->section, 'config_section', 'block_game');
             }
 
+=======
+                $mform->addElement('select', 'config_section_' . $section->section, get_string('section','block_game') . ' ' . $section->section, $limit);
+                $mform->addHelpButton('config_section_' . $section->section,  'config_section' , 'block_game');            
+            }            
+>>>>>>> 7fd78d70a569adec640274ad8ac832c0122820b6
         }
     }
 
