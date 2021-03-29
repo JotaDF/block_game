@@ -123,7 +123,7 @@ if ($ok) {
         $outputhtml = "... <br/><br/>";
         $context = context_course::instance($courseid, MUST_EXIST);
         if (has_capability('moodle/course:update', $context, $USER->id)) {
-            $outputhtml = get_string('not_initial_config_game', 'block_game');
+            $outputhtml .= get_string('not_initial_config_game', 'block_game');
         }
     }
 }
