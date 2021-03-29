@@ -29,6 +29,7 @@ $string['block_game:addinstance'] = 'Add a new Game block';
 $string['block_game:myaddinstance'] = 'Add a new Game block to the My Moodle page';
 
 $string['defaultdisplaysettings'] = 'Game pack general settings';
+$string['not_initial_config_game'] = '<p>It is necessary to make the initial settings of the Game Block in the course.</p>';
 
 $string['config_avatar'] = 'Use Avatar';
 $string['config_avatar_help'] = '<p>Using Avatar.</p>';

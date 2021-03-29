@@ -29,6 +29,7 @@ $string['block_game:addinstance'] = 'Adcionar novo bloco Game';
 $string['block_game:myaddinstance'] = 'Adcionar novo bloco Game na sua Moodle page';
 
 $string['defaultdisplaysettings'] = 'Configurações gerais do bloco Game';
+$string['not_initial_config_game'] = 'É necessário realizar as configurações iniciais do Bloco Game no curso.';
 
 $string['config_avatar'] = 'Utilizar Avatar';
 $string['config_avatar_help'] = '<p>Utilizando Avatar.</p>';
