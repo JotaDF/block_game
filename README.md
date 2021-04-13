@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/JotaDF/moodle-blockgame.svg?branch=master)](https://travis-ci.com/JotaDF/moodle-blockgame)
+[![Build Status](https://travis-ci.com/JotaDF/block_game.svg?branch=1.15)](https://travis-ci.com/JotaDF/block_game)
 
 Moodle block Game repository
 ===========================
