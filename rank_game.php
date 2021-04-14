@@ -80,6 +80,22 @@ if ($ok) {
             $outputhtml .= '<h3>( ' . get_string('general', 'block_game') . ' )</h3><br/>';
         }
         $outputhtml .= '<table border="0" width="100%">';
+        // View details.
+        $context = context_course::instance($COURSE->id, MUST_EXIST);
+        $header = '';
+        $showreader = false;
+        if (has_capability('moodle/course:update', $context, $USER->id)) {
+            $header .= '<tr>';
+            $header .= '<td><strong>' . get_string('order', 'block_game') . '</strong><hr/></td>';
+            $header .= '<td><strong>' . get_string('name', 'block_game') . '</strong><hr/></td>';
+            $header .= '<td><strong>' . get_string('score_atv', 'block_game') . '</strong><hr/></td>';
+            $header .= '<td><strong>' . get_string('score_section', 'block_game') . '</strong><hr/></td>';
+            $header .= '<td><strong>' . get_string('score_bonus_day', 'block_game') . '</strong><hr/></td>';
+            $header .= '<td><strong>' . get_string('score_total', 'block_game') . '</strong><hr/></td>';
+            $header .= '</tr>';
+            $showreader = true;
+        }
+        $outputhtml .= $header;
         $rs = rank_list($courseid, $groupid);
         $ord = 1;
         foreach ($rs as $gamer) {
@@ -100,7 +116,12 @@ if ($ok) {
             }
             $outputhtml .= '<tr>';
             $outputhtml .= '<td>' . $ordtxt . '<hr/></td><td> ' . $usertxt . ' <hr/></td>';
-            $outputhtml .= '<td> ' . $scoretxt . '<hr/></td>';
+            if ($showreader) {
+                $outputhtml .= '<td>' . $gamer->sum_score_activities . '<hr/></td>';
+                $outputhtml .= '<td>' . $gamer->sum_score_section . '<hr/></td>';
+                $outputhtml .= '<td>' . $gamer->sum_score_bonus_day . '<hr/></td>';
+            }
+            $outputhtml .= '<td>' . $scoretxt . '<hr/></td>';
             $outputhtml .= '</tr>';
 
             if ($limit > 0 && $limit == $ord) {

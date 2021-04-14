@@ -90,9 +90,7 @@ function update_avatar_game($game) {
     global $DB;
 
     if (!empty($game->userid) && !empty($game->avatar)) {
-
         $DB->execute("UPDATE {block_game} SET avatar=? WHERE userid=?", array($game->avatar, $game->userid));
-
         return true;
     }
     return false;
@@ -108,7 +106,6 @@ function update_score_game($game) {
     global $DB;
 
     if (!empty($game->id) && !empty($game->score)) {
-
         $savegame = new stdClass();
         $savegame->id = $game->id;
         $savegame->score = $game->score;
@@ -130,7 +127,6 @@ function update_level_game($game) {
     global $DB;
 
     if (!empty($game->id) && !empty($game->level)) {
-
         $savegame = new stdClass();
         $savegame->id = $game->id;
         $savegame->level = $game->level;
@@ -152,7 +148,6 @@ function update_achievements_game($game) {
     global $DB;
 
     if (!empty($game->id)) {
-
         $savegame = new stdClass();
         $savegame->id = $game->id;
         $savegame->achievements = $game->achievements;
@@ -174,7 +169,6 @@ function update_rewards_game($game) {
     global $DB;
 
     if (!empty($game->id)) {
-
         $savegame = new stdClass();
         $savegame->id = $game->id;
         $savegame->rewards = $game->rewards;
@@ -196,7 +190,6 @@ function update_phases_game($game) {
     global $DB;
 
     if (!empty($game->id)) {
-
         $savegame = new stdClass();
         $savegame->id = $game->id;
         $savegame->phases = $game->phases;
@@ -218,7 +211,6 @@ function update_badges_game($game) {
     global $DB;
 
     if (!empty($game->id)) {
-
         $savegame = new stdClass();
         $savegame->id = $game->id;
         $savegame->badges = $game->badges;
@@ -240,7 +232,6 @@ function update_frame_game($game) {
     global $DB;
 
     if (!empty($game->id)) {
-
         $savegame = new stdClass();
         $savegame->id = $game->id;
         $savegame->frame = $game->frame;

@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/JotaDF/block_game.svg?branch=1.15)](https://travis-ci.com/JotaDF/block_game)
-
 Moodle block Game repository
 ===========================
 VERSION 1.15
