@@ -107,7 +107,6 @@ class block_game extends block_base {
      * @return string
      */
     public function get_content() {
-
         global $USER, $SESSION, $COURSE, $OUTPUT, $CFG;
 
         // Load Game of user.
@@ -149,68 +148,7 @@ class block_game extends block_base {
         if ($COURSE->id > 1 && is_student_user($USER->id, $COURSE->id) == 0) {
             $scoreok = false;
         }
-        $levelnumber = 0;
-        // Config level up.
-        if ($showlevel && isset($game->config->show_level)) {
-            $levelnumber = (int) $game->config->level_number;
-            $levelup = array();
-            for ($i = 1; $i <= $game->config->level_number; $i++) {
-                $xlevel = 'level_up' . $i;
-                $levelup[] = (int) $game->config->$xlevel;
-            }
-        }
-        if ($COURSE->id > 1) {
-            // Sum score sections complete.
-            $sections = get_sections_course($COURSE->id);
-            $scoresections = 0;
-            foreach ($sections as $section) {
-                $txtsection = "section_" . $section->section;
-                if (is_check_section($USER->id, $COURSE->id, $section->id)) {
-                    if (isset($game->config->$txtsection)) {
-                        $scoresections += (int) $game->config->$txtsection;
-                    }
-                }
-            }
-            if ($scoreok) {
-                score_section($game, $scoresections);
-                $game->score_section = $scoresections;
-            }
-        }
-        // Bonus of day.
-        $addbonusday = 0;
-        if (isset($game->config->bonus_day)) {
-            $addbonusday = $game->config->bonus_day;
-        }
-        if ($addbonusday > 0 && $scoreok) {
-            bonus_of_day($game, $addbonusday);
-        }
-        // Bonus of badge.
-        if (isset($cfggame->bonus_badge)) {
-            $bonusbadge = $cfggame->bonus_badge;
-            if ($scoreok) {
-                $game = score_badge($game, $bonusbadge);
-            }
-        }
-        $groupid = 0;
-        if ($COURSE->groupmode == 1 || $COURSE->groupmode == 2) {
-            $groups = groups_get_all_groups($COURSE->id, $USER->id);
-            foreach ($groups as $group) {
-                $groupid = $group->id;
-            }
-        }
-        if ($scoreactivities && $scoreok) {
-            score_activities($game);
-            $game = ranking($game, $groupid);
-            if ($showlevel && isset($game->config->show_level)) {
-                $game = set_level($game, $levelup, $levelnumber);
-            }
-        } else {
-            no_score_activities($game);
-            $game = ranking($game, $groupid);
-            if ($showlevel && isset($game->config->show_level)) {
-                $game = set_level($game, $levelup, $levelnumber);
-            }
-        }
+        $game = process_game($game, $scoreok, $showlevel, $scoreactivities, $cfggame);
         $table = new html_table();
         $table->attributes = array('class' => 'gameTable', 'style' => 'width: 100%;');
         if ($USER->id != 0) {
@@ -257,18 +195,13 @@ class block_game extends block_base {
                 $row = array();
                 $icontxt = '<img src="' . $CFG->wwwroot . '/blocks/game/pix/rank.png" height="20" width="20"/>';
                 $row[] = $icontxt . ' ' . get_string('label_rank', 'block_game')
-                        . ': ' . $game->ranking . '&ordm; / ' . get_players($game->courseid, $groupid);
+                        . ': ' . $game->ranking . '&ordm; / ' . get_players($game->courseid, $game->groupid);
                 $table->data[] = $row;
-            }
-            $scorefull = (int) ($game->score + $game->score_bonus_day + $game->score_activities +
-                    $game->score_badges + $game->score_section);
-            if ($COURSE->id > 1) {
-                $scorefull = (int) ($game->score + $game->score_bonus_day + $game->score_activities + $game->score_section);
             }
             if ($showscore) {
                 $row = array();
                 $icontxt = '<img src="' . $CFG->wwwroot . '/blocks/game/pix/score.png" height="20" width="20"/>';
-                $row[] = $icontxt . ' ' . get_string('label_score', 'block_game') . ': ' . $scorefull . '';
+                $row[] = $icontxt . ' ' . get_string('label_score', 'block_game') . ': ' . $game->scorefull . '';
                 $table->data[] = $row;
             }
             if ($showlevel && isset($game->config->show_level)) {
@@ -277,19 +210,12 @@ class block_game extends block_base {
                 $row[] = $icontxt . ' ' . get_string('label_level', 'block_game') . ': ' . $game->level . '';
                 $table->data[] = $row;
 
-                $percent = 0;
-                $nextlevel = $game->level + 1;
-                if ($nextlevel <= $levelnumber) {
-                    $percent = 0;
-                    if ($scorefull > 0) {
-                        $percent = ($scorefull * 100) / $levelup[$game->level];
-                    }
-                }
                 $row = array();
                 $progressbar = '<div style="height:12px; padding:2px; background-color:#ccc; text-align:right; font-size:12px;">';
-                $progressbar .= '<div style="height: 8px; width:' . $percent;
+                $progressbar .= '<div style="height: 8px; width:' . $game->percent;
                 $progressbar .= '%; padding: 0px; background-color: #356ebc;"></div>';
-                $progressbar .= get_string('next_level', 'block_game') . ' =>' . $levelup[$game->level] . '</div>';
+                $xlevel = 'level_up' . ($game->level + 1);
+                $progressbar .= get_string('next_level', 'block_game') . ' =>' . $game->config->$xlevel . '</div>';
                 $row[] = $progressbar;
                 $table->data[] = $row;
             }
@@ -298,7 +224,7 @@ class block_game extends block_base {
             if ($showrank) {
                 $linkgroup = '';
                 if ($COURSE->groupmode == 1 || $COURSE->groupmode == 2) {
-                    $linkgroup = '&group=' . $groupid;
+                    $linkgroup = '&group=' . $game->groupid;
                 }
                 $icontxtrank .= '<td align="left" width="33%"><a href="'
                         . $CFG->wwwroot . '/blocks/game/rank_game.php?id=' . $COURSE->id . $linkgroup . '"><img alt="'
@@ -316,7 +242,7 @@ class block_game extends block_base {
             $icontxtrank .= '<td align="right" width="33%"><a href="' . $CFG->wwwroot . '/blocks/game/help_game.php?id='
                     . $COURSE->id . '"><img alt="' . get_string('help', 'block_game') . '" title="'
                     . get_string('help', 'block_game') . '" src="'
-                    . $CFG->wwwroot . '/blocks/game/pix/help.png"  height="24" width="24"/></a></td>';
+                    . $CFG->wwwroot . '/blocks/game/pix/help.svg"  height="24" width="24"/></a></td>';
             $icontxtrank .= '</tr></table>';
             $row[] = $icontxtrank;
             $table->data[] = $row;
