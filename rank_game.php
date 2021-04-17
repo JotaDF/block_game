@@ -29,7 +29,6 @@ require_login();
 
 global $USER, $SESSION, $COURSE, $OUTPUT, $CFG;
 
-
 $courseid = required_param('id', PARAM_INT);
 
 $groupid = optional_param('group', 0, PARAM_INT);
@@ -62,13 +61,13 @@ if ($course->groupmode == 1 and ! has_capability('moodle/site:accessallgroups', 
 }
 
 if ($ok) {
-    if ($courseid == 1) {
+    if ($courseid == SITEID) {
         $game->config = $cfggame;
     }
     $limit = 0;
     if (isset($game->config->show_rank) && $game->config->show_rank == 1) {
         $outputhtml = '<div class="rank">';
-        if ($courseid != 1) {
+        if ($courseid != SITEID) {
             $limit = $game->config->limit_rank;
             $txtlimit = "";
             if ($limit > 0) {
@@ -80,32 +79,16 @@ if ($ok) {
             $outputhtml .= '<h3>( ' . get_string('general', 'block_game') . ' )</h3><br/>';
         }
         $outputhtml .= '<table border="0" width="100%">';
-        // View details.
-        $context = context_course::instance($COURSE->id, MUST_EXIST);
-        $header = '';
-        $showreader = false;
-        if (has_capability('moodle/course:update', $context, $USER->id)) {
-            $header .= '<tr>';
-            $header .= '<td><strong>' . get_string('order', 'block_game') . '</strong><hr/></td>';
-            $header .= '<td><strong>' . get_string('name', 'block_game') . '</strong><hr/></td>';
-            $header .= '<td><strong>' . get_string('score_atv', 'block_game') . '</strong><hr/></td>';
-            $header .= '<td><strong>' . get_string('score_section', 'block_game') . '</strong><hr/></td>';
-            $header .= '<td><strong>' . get_string('score_bonus_day', 'block_game') . '</strong><hr/></td>';
-            $header .= '<td><strong>' . get_string('score_total', 'block_game') . '</strong><hr/></td>';
-            $header .= '</tr>';
-            $showreader = true;
-        }
-        $outputhtml .= $header;
-        $rs = rank_list($courseid, $groupid);
+        $rs = block_game_rank_list($courseid, $groupid);
         $ord = 1;
         foreach ($rs as $gamer) {
             $avatartxt = '';
-            if ($cfggame->use_avatar == 1) {
-                $avatartxt = $OUTPUT->pix_icon('a' . get_avatar_user($gamer->userid), 'Avatar', 'block_game');
+            if (isset($cfggame->use_avatar) && $cfggame->use_avatar == 1) {
+                $avatartxt = $OUTPUT->pix_icon('a' . block_game_get_avatar_user($gamer->userid), 'Avatar', 'block_game');
             }
             $ordtxt = $ord . '&ordm;';
             $usertxt = $avatartxt . ' ******** ';
-            if ($game->config->show_identity == 0) {
+            if (isset($game->config->show_identity) && $game->config->show_identity == 0) {
                 $usertxt = $avatartxt . ' ' . $gamer->firstname . ' ' . $gamer->lastname;
             }
             $scoretxt = $gamer->pt;
@@ -116,12 +99,7 @@ if ($ok) {
             }
             $outputhtml .= '<tr>';
             $outputhtml .= '<td>' . $ordtxt . '<hr/></td><td> ' . $usertxt . ' <hr/></td>';
-            if ($showreader) {
-                $outputhtml .= '<td>' . $gamer->sum_score_activities . '<hr/></td>';
-                $outputhtml .= '<td>' . $gamer->sum_score_section . '<hr/></td>';
-                $outputhtml .= '<td>' . $gamer->sum_score_bonus_day . '<hr/></td>';
-            }
-            $outputhtml .= '<td>' . $scoretxt . '<hr/></td>';
+            $outputhtml .= '<td> ' . $scoretxt . '<hr/></td>';
             $outputhtml .= '</tr>';
 
             if ($limit > 0 && $limit == $ord) {
@@ -131,7 +109,7 @@ if ($ok) {
         }
         $outputhtml .= '</table>';
 
-        $usernotstart = get_no_players($courseid, $groupid);
+        $usernotstart = block_game_get_no_players($courseid, $groupid);
         if ($usernotstart > 0) {
             if ($usernotstart == 1) {
                 $outputhtml .= '<br/>(' . $usernotstart . ' ' . get_string('not_start_game', 'block_game') . ' )';
