@@ -24,7 +24,13 @@
  */
 
 
-$string['pluginname'] = 'Block Game';
+$string['pluginname'] = 'Game';
+$string['privacy:metadata:block_game'] = "The Game block stores the avatar chosen by the user in the environment or course and records the score in the game according to the platform configuration.";
+$string['privacy:metadata:score_game_database:courseid'] = "Course ID";
+$string['privacy:metadata:score_game_database:cmid'] = "Course activity ID";
+$string['privacy:metadata:score_game_database:userid'] = "User ID";
+$string['privacy:metadata:avatar_game_database:avatar'] = "Avatars range from 0 to 51, each with a corresponding image in the Game block.";
+
 $string['block_game:addinstance'] = 'Add a new Game block';
 $string['block_game:myaddinstance'] = 'Add a new Game block to the My Moodle page';
 
@@ -122,9 +128,10 @@ $string['rank_group_game_title'] = 'Groups ranking list';
 $string['rank_game_title'] = 'Ranking list';
 $string['order'] = 'Ordem';
 $string['name'] = 'Nome';
-$string['score_atv'] = 'Atividades';
-$string['score_section'] = 'Seções';
-$string['score_bonus_day'] = 'Bônus do dia';
+$string['score_detail'] = 'Score detail';
+$string['score_atv'] = 'Activities';
+$string['score_section'] = 'Sections';
+$string['score_bonus_day'] = 'Bonus of day';
 $string['score_total'] = 'Total';
 
 $string['help_game_title'] = 'Help of game';
@@ -132,10 +139,12 @@ $string['not_start_game'] = 'User did not start playing';
 $string['not_start_game_s'] = 'Users they did not start playing';
 
 $string['label_course'] = 'Course';
+$string['label_avatar'] = 'Avatar';
 $string['label_badge'] = 'Badges';
 $string['label_rank'] = 'Ranking';
 $string['label_rank_group'] = 'Groups Ranking';
 $string['label_score'] = 'Score';
+$string['abbreviate_score'] = 'sco';
 $string['label_level'] = 'Level';
 
 $string['general'] = 'General';
@@ -165,7 +174,7 @@ $string['reset_points_not_permission'] = 'You are not allowed to do this!';
 
 // Help page!
 $string['help_avatar_titulo'] = 'About avatar';
-$string['help_avatar_text'] = 'The game allows you to choose or change your avatar whenever you want. When The dotted icon appears means you have not yet chosen your avatar by clicking on it, or on your avatar, it takes you to the Avatar Selection page, just click on the desired avatar to make your choice.<br/>
+$string['help_avatar_text'] = 'The game allows you to choose or change your avatar whenever you want. When the icon shown on the side appears, it means that you have not yet chosen your, by clicking on it or on your avatar, it takes you to the Avatar Selection page, just click on the desired avatar to make your choice.<br/>
 <br/><strong>Avatar tips :</strong><br/>
 - You can only change your avatar on the homepage or the dashboard page! <br/>
 - The Gray-tone avatar will only be available when you reach the required level!<br/>';
